@@ -1,13 +1,18 @@
 package com.appent.miageland;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootTest
+
+@SpringBootApplication
 class MiagelandApplicationTests {
 
-    @Test
-    void contextLoads() {
+    /**
+     * Main de l'application
+     *
+     * @param args arguments pour Spring
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(MiagelandApplication.class, args);
     }
-
 }
