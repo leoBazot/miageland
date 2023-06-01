@@ -28,7 +28,7 @@ public class Billet {
      * Visiteur ayant acheté le billet
      */
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference // pour éviter les cycles lors de la transformation en JSON
+    @JsonBackReference
     private CompteVisiteur compteVisiteur;
 
     /**
@@ -41,6 +41,6 @@ public class Billet {
      * Etat du billet
      */
     @NotNull
-    private EtatBillet etatBillet;
+    private EtatBillet etat;
 
 }
