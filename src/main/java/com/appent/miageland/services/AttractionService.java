@@ -13,17 +13,25 @@ public class AttractionService {
     private final AttractionRepository attractionRepository;
 
     /**
-     * Récupère une attraction selon son nom
+     * Récupère une attraction à partir de son Id
      *
-     * @param nom de l'attraction
+     * @param attId de l'attraction
      * @return le compte s'il existe
      * @throws com.appent.miageland.utilities.exceptions.attraction.AttractionExistanteException si le compte n'existe pas
      */
-    public Attraction getAttraction(String nom) {
-        return this.attractionRepository.findByNom(nom).orElseThrow(() ->
-                AttractionExceptionFactory.createAttractionExistanteException(nom));
+    public Attraction getAttraction(Long attId) {
+        return this.attractionRepository.findById(attId).orElseThrow(() ->
+                AttractionExceptionFactory.createAttractionInexistanteException(attId));
     }
 
+    /**
+     * Vérifie si une attraction existe
+     *
+     * @param nom de l'attraction
+     * @return true si l'attraction existe
+     * <p>
+     * false si elle n'existe pas
+     */
     public boolean existe(String nom) {
         return this.attractionRepository.findByNom(nom).isPresent();
     }
@@ -48,5 +56,16 @@ public class AttractionService {
 
         return this.attractionRepository.save(newAttraction);
     }
+
+    /**
+     * Supprime l'attraction à partir de son id
+     *
+     * @param attId id de l'attraction
+     * @throws com.appent.miageland.utilities.exceptions.attraction.AttractionInexistanteException si l'attraction n'existe pas
+     */
+    public void supprimmerAttraction(Long attId) {
+        this.attractionRepository.delete(getAttraction(attId));
+    }
+
 
 }

@@ -5,6 +5,7 @@ import com.appent.miageland.services.AttractionService;
 import com.appent.miageland.services.CompteService;
 import com.appent.miageland.utilities.Autorisations;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +23,12 @@ public class AttractionController {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
 
         return this.attractionService.creeAttraction(nomAttraction);
+    }
+
+    @DeleteMapping("/{attId}")
+    public void supprimerAttraction(Long cptId, Long attId) {
+        this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
+
+        this.attractionService.supprimmerAttraction(attId);
     }
 }
