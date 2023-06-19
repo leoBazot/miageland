@@ -8,23 +8,23 @@ Projet sur les Applications d'Entreprises avec Spring
 
 ## Utilisation de l'API
 
-| Méthode | URL                      | Body                                      | Réponse Body                                              | Description                                  |
-|---------|--------------------------|-------------------------------------------|-----------------------------------------------------------|----------------------------------------------|
-| GET     | /comptes/login/{mail}    | X                                         | compte.id                                                 | Connection a un compte                       |
-| POST    | /comptes/creer           | nom - prenom - adresse mail               | compte.id                                                 | Créer un compte Visiteur                     |                        
-| GET     | /billets/{id}            | X                                         | billet.etat                                               | Récupère un billet par son id                |
-|         | /comptes/{id}            |                                           |                                                           |                                              |
-| POST    | /attractions/creer       | nom                                       | attraction.id                                             | Créer une attraction                         |
-| DELETE  | /attractions/{id}        | X                                         | X                                                         | Supprime une attraction par son id           |
-| PUT     | /attractions/{id}/ouvrir | X                                         | X                                                         | Ouvre une attraction par son id              |
-| PUT     | /attractions/{id}/fermer | X                                         | X                                                         | Ferme une attraction par son id              |
-| POST    | /employes/inscrire       | nom - prenom - adresse mail - typeEmploye | employe.id                                                | Un gérant ajoute un compte employe           |
-| DELETE  | /employes/retirer        | nom                                       | X                                                         | Supprime un compte employe                   |
-| POST    | /billets/reserver        | dateVisite                                | billet.id                                                 | Un visiteur réserve un billet                |
-| GET     | /billets/{id}            | X                                         | billet.id - billet.dateVisite - billet.prix - billet.etat | Permet de consulter un billet                |                 
-| PUT     | /billets/{id}/annuler    | X                                         | billet.prix                                               | Un visiteur annule un billet                 |
-| GET     | /statistiques/           | X                                         | toutes les stats du sujet                                 | Permet de consulter les statistiques du parc |
-| PUT     | /jauges/{date}/{int}     | X                                         | X                                                         | Permet de modifier la jauge d'une date       |
+| Méthode | URL                         | Body                                      | Réponse Body                                              | Description                                  |
+|---------|-----------------------------|-------------------------------------------|-----------------------------------------------------------|----------------------------------------------|
+| GET     | /comptes/login/{mail}       | X                                         | compte.id                                                 | Connection a un compte                       |
+| POST    | /comptes/creer              | nom - prenom - adresse mail               | compte.id                                                 | Créer un compte Visiteur                     |                        
+|         | /comptes/{cptId}            |                                           |                                                           |                                              |
+| POST    | /attractions/creer          | nom                                       | attraction.id                                             | Créer une attraction (nom uniques)           |
+| DELETE  | /attractions/{id}           | X                                         | X                                                         | Supprime une attraction par son id           |
+| PUT     | /attractions/{attId}/ouvrir | X                                         | X                                                         | Ouvre une attraction par son id              |
+| PUT     | /attractions/{attId}/fermer | X                                         | X                                                         | Ferme une attraction par son id              |
+| POST    | /employes/inscrire          | nom - prenom - adresse mail - typeEmploye | employe.id                                                | Un gérant ajoute un compte employe           |
+| DELETE  | /employes/retirer           | nom                                       | X                                                         | Supprime un compte employe                   |
+| POST    | /billets/reserver           | dateVisite                                | billet.id                                                 | Un visiteur réserve un billet                |
+| GET     | /billets/{id}               | X                                         | billet.id - billet.dateVisite - billet.prix - billet.etat | Permet de consulter un billet                |                 
+| PUT     | /billets/{billetId}/annuler | X                                         | billet.prix                                               | Un visiteur annule un billet                 |
+| PUT     | /billets/{billetId}/valider | X                                         | EtatBillet                                                | Un employé valide un billet                  |
+| GET     | /statistiques/              | X                                         | toutes les stats du sujet                                 | Permet de consulter les statistiques du parc |
+| PUT     | /jauges/{date}/{int}        | X                                         | X                                                         | Permet de modifier la jauge d'une date       |
 
 ### Configuration
 
