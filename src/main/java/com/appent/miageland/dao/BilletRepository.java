@@ -1,7 +1,10 @@
 package com.appent.miageland.dao;
 
 import com.appent.miageland.entities.Billet;
+import com.appent.miageland.entities.EtatBillet;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.Optional;
 
 public interface BilletRepository extends CrudRepository<Billet, Long> {
 
@@ -11,5 +14,5 @@ public interface BilletRepository extends CrudRepository<Billet, Long> {
      * @param id l'id du billet
      * @return l'état du billet
      */
-    Billet findEtatById(Long id);
+    Optional<EtatBillet> findEtatById(Long id);
 }
