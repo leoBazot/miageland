@@ -1,4 +1,4 @@
-package com.appent.miageland.utilities;
+package com.appent.miageland.utilities.exceptions;
 
 import com.appent.miageland.utilities.exceptions.compte.CompteExistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteInexistantException;

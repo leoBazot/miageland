@@ -1,16 +1,15 @@
 package com.appent.miageland.entities;
 
+import com.appent.miageland.export.EtatBillet;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity
 @Data
-@NoArgsConstructor
 public class Billet {
     /**
      * Id du billet

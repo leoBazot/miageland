@@ -1,8 +1,9 @@
 package com.appent.miageland.exposition;
 
-import com.appent.miageland.entities.EtatBillet;
+import com.appent.miageland.export.EtatBillet;
 import com.appent.miageland.services.BilletService;
 import com.appent.miageland.services.CompteService;
+import com.appent.miageland.utilities.Autorisations;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,8 @@ public class BilletController {
 
     @GetMapping("{billetId}/valider")
     public EtatBillet validerBillet(Long cptId, Long billetIdid) {
+        this.compteService.verifAutorisations(cptId, Autorisations.VALIDER_BILLET);
 
-        return this.billetService.validerBillet(cptId, billetIdid);
+        return this.billetService.validerBillet(billetIdid);
     }
 }

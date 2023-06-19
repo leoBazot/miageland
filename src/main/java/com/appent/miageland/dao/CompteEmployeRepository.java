@@ -8,5 +8,11 @@ import java.util.Optional;
 
 public interface CompteEmployeRepository extends CrudRepository<CompteEmploye, Long> {
 
+    /**
+     * Recherche un compte employé par son adresse mail
+     *
+     * @param adresseMail de l'employé
+     * @return l'employé recherchée
+     */
     Optional<CompteEmploye> findByAdresseMail(String adresseMail);
 }

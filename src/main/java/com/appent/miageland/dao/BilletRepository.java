@@ -1,7 +1,7 @@
 package com.appent.miageland.dao;
 
 import com.appent.miageland.entities.Billet;
-import com.appent.miageland.entities.EtatBillet;
+import com.appent.miageland.export.EtatBillet;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

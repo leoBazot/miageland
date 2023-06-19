@@ -4,11 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @MappedSuperclass
 @Data
-@NoArgsConstructor
 public abstract class Compte {
     /**
      * Nom du compte

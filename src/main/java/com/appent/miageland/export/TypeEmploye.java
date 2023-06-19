@@ -1,4 +1,4 @@
-package com.appent.miageland.entities;
+package com.appent.miageland.export;
 
 public enum TypeEmploye {
     /**

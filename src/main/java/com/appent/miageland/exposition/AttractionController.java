@@ -3,6 +3,7 @@ package com.appent.miageland.exposition;
 import com.appent.miageland.entities.Attraction;
 import com.appent.miageland.services.AttractionService;
 import com.appent.miageland.services.CompteService;
+import com.appent.miageland.utilities.Autorisations;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,9 @@ public class AttractionController {
 
 
     @PostMapping("/creer")
-    public Long creerAttraction(Long cptId, @RequestBody Attraction attraction) {
-        return null;
+    public Attraction creerAttraction(Long cptId, @RequestBody String nomAttraction) {
+        this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
+
+        return this.attractionService.creeAttraction(nomAttraction);
     }
 }

@@ -5,9 +5,8 @@ import com.appent.miageland.dao.CompteVisiteurRepository;
 import com.appent.miageland.entities.Compte;
 import com.appent.miageland.entities.CompteEmploye;
 import com.appent.miageland.entities.CompteVisiteur;
-import com.appent.miageland.utilities.CompteExceptionFactory;
-import com.appent.miageland.utilities.exceptions.compte.CompteExistantException;
-import com.appent.miageland.utilities.exceptions.compte.CompteInexistantException;
+import com.appent.miageland.export.TypeEmploye;
+import com.appent.miageland.utilities.exceptions.CompteExceptionFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +20,20 @@ public class CompteService {
     private final CompteVisiteurRepository compteVisiteurRepository;
     private final CompteEmployeRepository compteEmployeRepository;
 
+    /**
+     * Vérifie qu'un compte fait parti des membres autorisés à réaliser l'opération
+     *
+     * @param cptId     id du compte
+     * @param autorises types de comptes autorisés à faire l'opération
+     * @throws com.appent.miageland.utilities.exceptions.compte.CompteNonAutoriseException si le compte n'a pas les droits nécessaires
+     */
+    public void verifAutorisations(Long cptId, List<TypeEmploye> autorises) {
+        var employe = this.getEmploye(cptId);
+
+        if (!autorises.contains(employe.getTypeEmploye())) {
+            throw CompteExceptionFactory.createCompteNonAutoriseException(cptId);
+        }
+    }
 
     /**
      * Récupère tout les comptes avec l'adresse mail donnée
@@ -42,7 +55,7 @@ public class CompteService {
      *
      * @param adresseMail l'adresse mail du compte
      * @return l'id du compte si le compte existe
-     * @throws CompteInexistantException si le compte n'existe pas
+     * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
      */
     public Long login(String adresseMail) {
         List<Compte> comptes = this.getAllCompteWithMail(adresseMail);
@@ -59,7 +72,7 @@ public class CompteService {
      *
      * @param compte les informations du compte à créer
      * @return l'id du compte créé
-     * @throws CompteExistantException si le compte existe déjà
+     * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte existe déjà
      */
     public Long creerCompteVisiteur(Compte compte) {
         List<Compte> compteList = this.getAllCompteWithMail(compte.getAdresseMail());
@@ -81,7 +94,7 @@ public class CompteService {
      *
      * @param id l'id du compte
      * @return le compte s'il existe
-     * @throws RuntimeException si le compte n'existe pas
+     * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
      */
     public Compte getVisiteur(Long id) {
         return this.compteVisiteurRepository.findById(id).orElseThrow(() ->
@@ -93,7 +106,7 @@ public class CompteService {
      *
      * @param id l'id du compte
      * @return le compte s'il existe
-     * @throws RuntimeException si le compte n'existe pas
+     * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
      */
     public CompteEmploye getEmploye(Long id) {
         return this.compteEmployeRepository.findById(id).orElseThrow(() ->

@@ -13,7 +13,7 @@ Projet sur les Applications d'Entreprises avec Spring
 | GET     | /comptes/login/{mail}       | X                                         | compte.id                                                 | Connection a un compte                       |
 | POST    | /comptes/creer              | nom - prenom - adresse mail               | compte.id                                                 | Créer un compte Visiteur                     |                        
 |         | /comptes/{cptId}            |                                           |                                                           |                                              |
-| POST    | /attractions/creer          | nom                                       | attraction.id                                             | Créer une attraction (nom uniques)           |
+| POST    | /attractions/creer          | attraction                                | attraction                                                | Créer une attraction (nom uniques)           |
 | DELETE  | /attractions/{id}           | X                                         | X                                                         | Supprime une attraction par son id           |
 | PUT     | /attractions/{attId}/ouvrir | X                                         | X                                                         | Ouvre une attraction par son id              |
 | PUT     | /attractions/{attId}/fermer | X                                         | X                                                         | Ferme une attraction par son id              |
