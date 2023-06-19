@@ -5,10 +5,7 @@ import com.appent.miageland.services.AttractionService;
 import com.appent.miageland.services.CompteService;
 import com.appent.miageland.utilities.Autorisations;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/comptes/{cptId}/attractions")
 @AllArgsConstructor()
@@ -30,5 +27,19 @@ public class AttractionController {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
 
         this.attractionService.supprimmerAttraction(attId);
+    }
+
+    @PutMapping("/{attId}/ouvrir")
+    public void ourvrirAttraction(Long cptId, @RequestBody Attraction attraction) {
+        this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
+
+        this.attractionService.ouvrir(attraction);
+    }
+
+    @PutMapping("/{attId}/fermer")
+    public void fermerAttraction(Long cptId, @RequestBody Attraction attraction) {
+        this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
+
+        this.attractionService.fermer(attraction);
     }
 }

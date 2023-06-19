@@ -67,5 +67,30 @@ public class AttractionService {
         this.attractionRepository.delete(getAttraction(attId));
     }
 
+    /**
+     * Ouvre une attraction
+     *
+     * @param attraction qui doit être ouverte
+     */
+    public void ouvrir(Attraction attraction) {
+        var res = this.getAttraction(attraction.getId());
 
+        res.setOuvert(true);
+
+        this.attractionRepository.save(res);
+    }
+
+
+    /**
+     * Ferme une attraction
+     *
+     * @param attraction qui doit être fermée
+     */
+    public void fermer(Attraction attraction) {
+        var res = this.getAttraction(attraction.getId());
+
+        res.setOuvert(false);
+
+        this.attractionRepository.save(res);
+    }
 }
