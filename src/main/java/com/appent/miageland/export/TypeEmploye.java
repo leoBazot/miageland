@@ -14,5 +14,5 @@ public enum TypeEmploye {
     /**
      * Employe
      */
-    EMPLOYE;
+    EMPLOYE
 }

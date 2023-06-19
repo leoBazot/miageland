@@ -6,8 +6,6 @@ import com.appent.miageland.utilities.exceptions.billet.BilletInexistantExceptio
 import com.appent.miageland.utilities.exceptions.compte.CompteExistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteInexistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteNonAutoriseException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingPathVariableException;
@@ -30,36 +28,33 @@ public class ExeptionHandler {
      * Erreur 404 lorsqu'un id n'est pas fournis alors que nécessaire
      * <a href="https://www.baeldung.com/spring-optional-path-variables#pathVariable-parameters">voir ici</a>
      *
-     * @param request   requête http
      * @param exception exception throw
      * @return error 404 ainsi que le type d'erreur et son message
      */
     @ExceptionHandler(MissingPathVariableException.class)
-    public ResponseEntity<ErrorExport> gererException(HttpServlet request, MissingPathVariableException exception) {
+    public ResponseEntity<ErrorExport> gererException(MissingPathVariableException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
     }
 
     /**
      * Erreur 404 en cas de compte inexistant dans la base
      *
-     * @param request   requête http
      * @param exception exception throw
      * @return error 404 ainsi que le type d'erreur et son message
      */
     @ExceptionHandler(CompteInexistantException.class)
-    public ResponseEntity<ErrorExport> gererException(HttpServlet request, CompteInexistantException exception) {
+    public ResponseEntity<ErrorExport> gererException(CompteInexistantException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
     }
 
     /**
      * Erreur 404 en cas de billet inexistant dans la base
      *
-     * @param request   requête http
      * @param exception exception throw
      * @return error 404 ainsi que le type d'erreur et son message
      */
     @ExceptionHandler(BilletInexistantException.class)
-    public ResponseEntity<ErrorExport> gererException(HttpServlet request, BilletInexistantException exception) {
+    public ResponseEntity<ErrorExport> gererException(BilletInexistantException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
     }
 
@@ -72,24 +67,22 @@ public class ExeptionHandler {
     /**
      * Erreur 400 en cas de compte déjà existant dans la base
      *
-     * @param request   requête http
      * @param exception exception throw
      * @return error 400 ainsi que le type d'erreur et son message
      */
     @ExceptionHandler(CompteExistantException.class)
-    public ResponseEntity<ErrorExport> gererException(HttpServlet request, CompteExistantException exception) {
+    public ResponseEntity<ErrorExport> gererException(CompteExistantException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
     }
 
     /**
      * Erreur 400 en cas de compte déjà existant dans la base
      *
-     * @param request   requête http
      * @param exception exception throw
      * @return error 400 ainsi que le type d'erreur et son message
      */
     @ExceptionHandler(AttractionExistanteException.class)
-    public ResponseEntity<ErrorExport> gererException(HttpServlet request, AttractionExistanteException exception) {
+    public ResponseEntity<ErrorExport> gererException(AttractionExistanteException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
     }
 
@@ -102,12 +95,11 @@ public class ExeptionHandler {
     /**
      * Erreur 403 si le compte manque de droit pour réaliser une opération
      *
-     * @param request   requête http
      * @param exception exception throw
      * @return error 403 ainsi que le type d'erreur et son message
      */
     @ExceptionHandler(CompteNonAutoriseException.class)
-    public ResponseEntity<ErrorExport> gererException(HttpServlet request, CompteNonAutoriseException exception) {
+    public ResponseEntity<ErrorExport> gererException(CompteNonAutoriseException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.FORBIDDEN);
     }
 
@@ -120,12 +112,11 @@ public class ExeptionHandler {
     /**
      * Erreur 500 en cas d'autre erreur
      *
-     * @param request   requête HTTP
      * @param exception exception
      * @return l'erreur 500 ainsi que le type d'erreur et son message
      */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorExport> gereAutreException(HttpServletRequest request, Exception exception) {
+    public ResponseEntity<ErrorExport> gereAutreException(Exception exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

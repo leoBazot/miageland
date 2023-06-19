@@ -1,7 +1,6 @@
 package com.appent.miageland.services;
 
 import com.appent.miageland.dao.BilletRepository;
-import com.appent.miageland.dao.CompteEmployeRepository;
 import com.appent.miageland.export.EtatBillet;
 import com.appent.miageland.utilities.exceptions.BilletExceptionFactory;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class BilletService {
 
-    private final CompteEmployeRepository compteEmployeRepository;
     private final BilletRepository billetRepository;
 
     /**
