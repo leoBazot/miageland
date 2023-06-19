@@ -1,22 +1,15 @@
 package com.appent.miageland.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@MappedSuperclass
 @Data
 @NoArgsConstructor
 public abstract class Compte {
-
-    /**
-     * Id de l'entité
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     /**
      * Nom du compte
      */
@@ -35,4 +28,8 @@ public abstract class Compte {
     @NotNull
     @Column(unique = true)
     private String adresseMail;
+
+    public abstract Long getId();
+
+    public abstract void setId(Long id);
 }
