@@ -113,4 +113,23 @@ public class BilletService {
             throw BilletExceptionFactory.createBilletInexistantException(billetId);
         });
     }
+
+    /**
+     * Valide le payement d'un billet
+     *
+     * @param visiteur visiteur
+     * @param billetId id du billet à valider
+     * @return le billet validé
+     */
+    public Billet payerBillet(CompteVisiteur visiteur, Long billetId) {
+        var paye = getBillet(visiteur, billetId);
+
+        if (paye.getEtat() != EtatBillet.ATTENTE_PAIEMENT) {
+            throw BilletExceptionFactory.createBilletInvalideException(paye);
+        } // else
+
+        paye.setEtat(EtatBillet.VALIDE);
+
+        return this.billetRepository.save(paye);
+    }
 }

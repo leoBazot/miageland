@@ -43,5 +43,9 @@ public class BilletController {
         return this.billetService.getBillet(this.compteService.getVisiteur(cptId), billetId);
     }
 
+    @PutMapping("/{billetId}")
+    public Billet payerBillet(Long cptId, Long billetId) {
+        return this.billetService.payerBillet(this.compteService.getVisiteur(cptId), billetId);
+    }
 
 }
