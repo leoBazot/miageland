@@ -1,24 +1,27 @@
 package com.appent.miageland.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
-public class JaugeJour {
+public class Jauge {
 
     @Id
     @GeneratedValue // default = AUTO
     private Long id;
 
-    private Date jour;
+    @NotNull
+    @Column(unique = true)
+    private LocalDate jour;
 
     @NotNull
-    private int jauge;
+    private int nbPlaces;
 
 }

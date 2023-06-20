@@ -6,11 +6,14 @@ import com.appent.miageland.utilities.exceptions.billet.BilletInexistantExceptio
 import com.appent.miageland.utilities.exceptions.compte.CompteExistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteInexistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteNonAutoriseException;
+import com.appent.miageland.utilities.exceptions.jauge.JaugePleineException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.time.format.DateTimeParseException;
 
 /**
  * Classe de gestion des exception pour l'API via la configuration spring
@@ -83,6 +86,28 @@ public class ExeptionHandler {
      */
     @ExceptionHandler(AttractionExistanteException.class)
     public ResponseEntity<ErrorExport> gererException(AttractionExistanteException exception) {
+        return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Erreur 400 en cas de date mal formatée (!= "yyyy-MM-dd")
+     *
+     * @param exception exception throw
+     * @return error 400 ainsi que le type d'erreur et son message
+     */
+    @ExceptionHandler(DateTimeParseException.class)
+    public ResponseEntity<ErrorExport> gererException(DateTimeParseException exception) {
+        return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Erreur 400 en cas de reservation d'un billet sur une date complète
+     *
+     * @param exception exception throw
+     * @return error 400 ainsi que le type d'erreur et son message
+     */
+    @ExceptionHandler(JaugePleineException.class)
+    public ResponseEntity<ErrorExport> gererException(JaugePleineException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
     }
 

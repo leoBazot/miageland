@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -22,13 +22,13 @@ public class Billet {
      * Date de visite
      */
     @NotNull
-    private Date dateVisite;
+    private LocalDate dateVisite;
 
     /**
      * Date ou le billet à été payé
      */
     @NotNull
-    private Date datePaye;
+    private LocalDate datePaye;
 
     /**
      * Visiteur ayant acheté le billet
@@ -38,7 +38,7 @@ public class Billet {
     private CompteVisiteur compteVisiteur;
 
     /**
-     * Prix
+     * Prix en euro (€)
      */
     @NotNull
     private double prix;

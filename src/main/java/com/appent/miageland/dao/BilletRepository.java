@@ -4,6 +4,7 @@ import com.appent.miageland.entities.Billet;
 import com.appent.miageland.export.EtatBillet;
 import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 public interface BilletRepository extends CrudRepository<Billet, Long> {
@@ -15,4 +16,12 @@ public interface BilletRepository extends CrudRepository<Billet, Long> {
      * @return l'état du billet
      */
     Optional<EtatBillet> findEtatById(Long id);
+
+    /**
+     * Compte le nombre de billets pour une date donnée
+     *
+     * @param dateVisite date à chercher
+     * @return le nombre de billets
+     */
+    int countAllByDateVisiteAndEtat(LocalDate dateVisite, EtatBillet etat);
 }

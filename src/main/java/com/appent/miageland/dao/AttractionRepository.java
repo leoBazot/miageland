@@ -16,5 +16,10 @@ public interface AttractionRepository extends CrudRepository<Attraction, Long> {
      */
     Optional<Attraction> findByNom(String nom);
 
+    /**
+     * renvoie toutes les attractions
+     *
+     * @return une collection des toutes les attraction
+     */
     Collection<Attraction> findAll();
 }
