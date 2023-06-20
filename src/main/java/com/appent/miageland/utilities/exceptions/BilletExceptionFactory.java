@@ -1,6 +1,8 @@
 package com.appent.miageland.utilities.exceptions;
 
+import com.appent.miageland.entities.Billet;
 import com.appent.miageland.utilities.exceptions.billet.BilletInexistantException;
+import com.appent.miageland.utilities.exceptions.billet.BilletInvalideException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -18,5 +20,9 @@ public class BilletExceptionFactory {
      */
     public static BilletInexistantException createBilletInexistantException(Long id) {
         return new BilletInexistantException(id);
+    }
+
+    public static BilletInvalideException createBilletInvalideException(Billet billet) {
+        return new BilletInvalideException(billet);
     }
 }

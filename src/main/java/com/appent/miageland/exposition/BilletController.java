@@ -35,6 +35,13 @@ public class BilletController {
 
     @GetMapping
     public Collection<Billet> getAllBillets(Long cptId) {
-        return this.billetService.getAll(cptId);
+        return this.billetService.getAll(this.compteService.getVisiteur(cptId));
     }
+
+    @GetMapping("/{billetId}")
+    public Billet getBillet(Long cptId, Long billetId) {
+        return this.billetService.getBillet(this.compteService.getVisiteur(cptId), billetId);
+    }
+
+
 }

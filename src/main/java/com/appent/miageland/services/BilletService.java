@@ -30,18 +30,18 @@ public class BilletService {
      * @param billetId du billet à valider
      * @return l'état du billet avant validation
      * @throws com.appent.miageland.utilities.exceptions.billet.BilletInexistantException si le billet n'existe pas
+     * @throws com.appent.miageland.utilities.exceptions.billet.BilletInvalideException   si le billet est invalide
      */
     public EtatBillet valider(Long billetId) {
         var billet = this.billetRepository.findById(billetId).orElseThrow(() ->
                 BilletExceptionFactory.createBilletInexistantException(billetId));
 
-        if (billet.getEtat() == EtatBillet.VALIDE) {
-            billet.setEtat(EtatBillet.UTILISE);
-            this.billetRepository.save(billet);
-            return EtatBillet.VALIDE;
-        }
-
-        return billet.getEtat();
+        if (billet.getEtat() != EtatBillet.VALIDE) {
+            throw BilletExceptionFactory.createBilletInvalideException(billet);
+        } // else
+        billet.setEtat(EtatBillet.UTILISE);
+        this.billetRepository.save(billet);
+        return EtatBillet.VALIDE;
     }
 
     /**
@@ -93,10 +93,24 @@ public class BilletService {
     /**
      * Donne tout les billets d'un visiteur
      *
-     * @param cptId id du visiteur
+     * @param visiteur visiteur
      * @return collection des billets d'un visiteur
      */
-    public Collection<Billet> getAll(Long cptId) {
-        return this.billetRepository.findAllByCompteVisiteurId(cptId);
+    public Collection<Billet> getAll(CompteVisiteur visiteur) {
+        return this.billetRepository.findAllByCompteVisiteur(visiteur);
+    }
+
+    /**
+     * Donne le billet d'un visiteur par son id
+     *
+     * @param visiteur visiteur
+     * @param billetId id du billet
+     * @return le billet
+     * @throws com.appent.miageland.utilities.exceptions.billet.BilletInexistantException si le billet n'existe pas
+     */
+    public Billet getBillet(CompteVisiteur visiteur, Long billetId) {
+        return this.billetRepository.findByCompteVisiteurAndId(visiteur, billetId).orElseThrow(() -> {
+            throw BilletExceptionFactory.createBilletInexistantException(billetId);
+        });
     }
 }

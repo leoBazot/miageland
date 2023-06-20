@@ -1,6 +1,7 @@
 package com.appent.miageland.dao;
 
 import com.appent.miageland.entities.Billet;
+import com.appent.miageland.entities.CompteVisiteur;
 import com.appent.miageland.export.EtatBillet;
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,12 +12,13 @@ import java.util.Optional;
 public interface BilletRepository extends CrudRepository<Billet, Long> {
 
     /**
-     * Recherche de l'état d'un billet par son id
+     * Recherche d'un billet par son id
      *
-     * @param id l'id du billet
-     * @return l'état du billet
+     * @param visiteur visiteur
+     * @param billetId l'id du billet
+     * @return le billet
      */
-    Optional<EtatBillet> findEtatById(Long id);
+    Optional<Billet> findByCompteVisiteurAndId(CompteVisiteur visiteur, Long billetId);
 
     /**
      * Compte le nombre de billets pour une date donnée
@@ -29,8 +31,8 @@ public interface BilletRepository extends CrudRepository<Billet, Long> {
     /**
      * Recherche les billets appartenant à un utilisateur
      *
-     * @param cptId id du visiteur
+     * @param visiteur visiteur
      * @return une collection de billets appartenant au visiteur
      */
-    Collection<Billet> findAllByCompteVisiteurId(Long cptId);
+    Collection<Billet> findAllByCompteVisiteur(CompteVisiteur visiteur);
 }
