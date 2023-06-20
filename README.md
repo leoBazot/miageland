@@ -8,23 +8,27 @@ Projet sur les Applications d'Entreprises avec Spring
 
 ## Utilisation de l'API
 
-| Méthode | URL                         | Body                                      | Réponse Body                                              | Description                                  |
-|---------|-----------------------------|-------------------------------------------|-----------------------------------------------------------|----------------------------------------------|
-| GET     | /comptes/login/{mail}       | X                                         | compte.id                                                 | Connection a un compte                       |
-| POST    | /comptes/creer              | nom - prenom - adresse mail               | compte.id                                                 | Créer un compte Visiteur                     |                        
-|         | /comptes/{cptId}            |                                           |                                                           |                                              |
-| POST    | /attractions/creer          | attraction                                | attraction                                                | Créer une attraction (nom uniques)           |
-| DELETE  | /attractions/{id}           | X                                         | X                                                         | Supprime une attraction par son id           |
-| PUT     | /attractions/{attId}/ouvrir | X                                         | X                                                         | Ouvre une attraction par son id              |
-| PUT     | /attractions/{attId}/fermer | X                                         | X                                                         | Ferme une attraction par son id              |
-| POST    | /employes/inscrire          | nom - prenom - adresse mail - typeEmploye | employe.id                                                | Un gérant ajoute un compte employe           |
-| DELETE  | /employes/retirer           | nom                                       | X                                                         | Supprime un compte employe                   |
-| POST    | /billets/reserver           | dateVisite                                | billet.id                                                 | Un visiteur réserve un billet                |
-| GET     | /billets/{id}               | X                                         | billet.id - billet.dateVisite - billet.prix - billet.etat | Permet de consulter un billet                |                 
-| PUT     | /billets/{billetId}/annuler | X                                         | billet.prix                                               | Un visiteur annule un billet                 |
-| PUT     | /billets/{billetId}/valider | X                                         | EtatBillet                                                | Un employé valide un billet                  |
-| GET     | /statistiques/              | X                                         | toutes les stats du sujet                                 | Permet de consulter les statistiques du parc |
-| PUT     | /jauges/{date}/{int}        | X                                         | X                                                         | Permet de modifier la jauge d'une date       |
+| Fait | Méthode | URL                         | Body                                      | Réponse Body                                              | Description                                      |
+|:----:|---------|-----------------------------|-------------------------------------------|-----------------------------------------------------------|--------------------------------------------------|
+|  X   | GET     | /comptes/login/{mail}       | X                                         | compte.id                                                 | Connection a un compte                           |
+|  X   | POST    | /comptes/creer              | nom - prenom - adresse mail               | compte.id                                                 | Créer un compte visiteur                         |
+|  X   | GET     | /attractions                |                                           | liste des attractions                                     | Permet de consulter la liste des attractions     |
+|      |         | /comptes/{cptId}            |                                           |                                                           |                                                  |
+|  X   | DELETE  | /                           | X                                         | X                                                         | Permet la suppression de son compte visiteur     |
+|  X   | POST    | /attractions/creer          | attraction                                | attraction                                                | Créer une attraction (nom uniques)               |
+|  X   | DELETE  | /attractions/{attId}        | X                                         | X                                                         | Supprime une attraction par son id               |
+|  X   | PUT     | /attractions/{attId}/ouvrir | X                                         | X                                                         | Ouvre une attraction par son id                  |
+|  X   | PUT     | /attractions/{attId}/fermer | X                                         | X                                                         | Ferme une attraction par son id                  |
+|  X   | GET     | /employes                   | X                                         | X                                                         | Permet de consulter la liste des employes        |
+|  X   | POST    | /employes                   | nom - prenom - adresse mail - typeEmploye | employe.id                                                | Un gérant ajoute un compte employe               |
+|      | DELETE  | /employes/{eId}             | X                                         | X                                                         | Supprime un compte employe                       |
+|      | POST    | /billets/reserver           | dateVisite                                | billet.id                                                 | Un visiteur réserve un billet                    |
+|      | GET     | /billets                    | X                                         | liste des billets du compte                               | Permet de consulter la liste des billets achetés |
+|      | GET     | /billets/{id}               | X                                         | billet.id - billet.dateVisite - billet.prix - billet.etat | Permet de consulter un billet                    |
+|      | PUT     | /billets/{billetId}/annuler | X                                         | billet.prix                                               | Un visiteur annule un billet                     |
+|  X   | PUT     | /billets/{billetId}/valider | X                                         | EtatBillet                                                | Un employé valide un billet                      |
+|      | GET     | /statistiques/              | X                                         | toutes les stats du sujet                                 | Permet de consulter les statistiques du parc     |
+|      | PUT     | /jauges/{date}/{int}        | X                                         | X                                                         | Permet de modifier la jauge d'une date           |
 
 ### Configuration
 

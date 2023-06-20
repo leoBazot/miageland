@@ -3,6 +3,7 @@ package com.appent.miageland.dao;
 import com.appent.miageland.entities.Attraction;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Collection;
 import java.util.Optional;
 
 public interface AttractionRepository extends CrudRepository<Attraction, Long> {
@@ -14,4 +15,6 @@ public interface AttractionRepository extends CrudRepository<Attraction, Long> {
      * @return l'attraction recherchée
      */
     Optional<Attraction> findByNom(String nom);
+
+    Collection<Attraction> findAll();
 }

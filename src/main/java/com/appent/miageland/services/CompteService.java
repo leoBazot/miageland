@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -51,6 +52,30 @@ public class CompteService {
     }
 
     /**
+     * Permet de récupérer un compte visiteur selon son id
+     *
+     * @param id l'id du compte
+     * @return le compte s'il existe
+     * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
+     */
+    public CompteVisiteur getVisiteur(Long id) {
+        return this.compteVisiteurRepository.findById(id).orElseThrow(() ->
+                CompteExceptionFactory.createCompteInexistantException(id));
+    }
+
+    /**
+     * Permet de récupérer un compte employe selon son id
+     *
+     * @param id l'id du compte
+     * @return le compte s'il existe
+     * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
+     */
+    public CompteEmploye getEmploye(Long id) {
+        return this.compteEmployeRepository.findById(id).orElseThrow(() ->
+                CompteExceptionFactory.createCompteInexistantException(id));
+    }
+
+    /**
      * Permet de se connecter à un compte
      *
      * @param adresseMail l'adresse mail du compte
@@ -85,32 +110,43 @@ public class CompteService {
         newVisiteur.setNom(compte.getNom());
         newVisiteur.setPrenom(compte.getPrenom());
         newVisiteur.setAdresseMail(compte.getAdresseMail());
+        newVisiteur.setBillets(new ArrayList<>());
 
         return this.compteVisiteurRepository.save(newVisiteur).getId();
     }
 
     /**
-     * Permet de récupérer un compte visiteur selon son id
+     * Crée un compte employe
      *
-     * @param id l'id du compte
-     * @return le compte s'il existe
-     * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
+     * @param employe les informations de l'employe à créer
+     * @return le compte employe créé
      */
-    public Compte getVisiteur(Long id) {
-        return this.compteVisiteurRepository.findById(id).orElseThrow(() ->
-                CompteExceptionFactory.createCompteInexistantException(id));
+    public CompteEmploye creerCompteEmploye(CompteEmploye employe) {
+        List<Compte> compteList = this.getAllCompteWithMail(employe.getAdresseMail());
+
+        if (!compteList.isEmpty()) {
+            throw CompteExceptionFactory.createCompteExistantException(employe.getAdresseMail());
+        } // else
+
+        var newEmploye = new CompteEmploye();
+        newEmploye.setNom(employe.getNom());
+        newEmploye.setPrenom(employe.getPrenom());
+        newEmploye.setAdresseMail(employe.getAdresseMail());
+        newEmploye.setTypeEmploye(employe.getTypeEmploye());
+
+        return this.compteEmployeRepository.save(newEmploye);
     }
 
     /**
-     * Permet de récupérer un compte employe selon son id
+     * Permet à un visiteur de supprimmer son compte
      *
-     * @param id l'id du compte
-     * @return le compte s'il existe
-     * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
+     * @param cptId id du compte à supprimer
      */
-    public CompteEmploye getEmploye(Long id) {
-        return this.compteEmployeRepository.findById(id).orElseThrow(() ->
-                CompteExceptionFactory.createCompteInexistantException(id));
+    public void supprCompteVisiteur(Long cptId) {
+        this.compteVisiteurRepository.delete(this.getVisiteur(cptId));
     }
 
+    public Collection<CompteEmploye> getAllEmployes() {
+        return this.compteEmployeRepository.findAll();
+    }
 }

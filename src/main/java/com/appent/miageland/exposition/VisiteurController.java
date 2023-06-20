@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/comptes")
 @AllArgsConstructor
-public class CompteController {
+public class VisiteurController {
 
     private final CompteService compteService;
 
@@ -17,9 +17,13 @@ public class CompteController {
         return this.compteService.login(adresseMail);
     }
 
-    @PostMapping("creer")
-    public Long creerCompte(@RequestBody Compte compte) {
+    @PostMapping
+    public Long creerVisiteur(@RequestBody Compte compte) {
         return this.compteService.creerCompteVisiteur(compte);
     }
 
+    @DeleteMapping("/{cptId}")
+    public void supprimerVisiteur(Long cptId) {
+        this.compteService.supprCompteVisiteur(cptId);
+    }
 }

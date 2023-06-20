@@ -3,6 +3,7 @@ package com.appent.miageland.dao;
 import com.appent.miageland.entities.CompteEmploye;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Collection;
 import java.util.Optional;
 
 
@@ -15,4 +16,6 @@ public interface CompteEmployeRepository extends CrudRepository<CompteEmploye, L
      * @return l'employé recherchée
      */
     Optional<CompteEmploye> findByAdresseMail(String adresseMail);
+
+    Collection<CompteEmploye> findAll();
 }

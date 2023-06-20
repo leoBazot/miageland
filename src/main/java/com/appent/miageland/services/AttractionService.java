@@ -6,6 +6,8 @@ import com.appent.miageland.utilities.exceptions.AttractionExceptionFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
 @AllArgsConstructor
 public class AttractionService {
@@ -92,5 +94,9 @@ public class AttractionService {
         res.setOuvert(false);
 
         this.attractionRepository.save(res);
+    }
+
+    public Collection<Attraction> getAllAttractions() {
+        return this.attractionRepository.findAll();
     }
 }
