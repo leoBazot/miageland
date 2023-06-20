@@ -14,5 +14,10 @@ public enum EtatBillet {
     /**
      * Billet utilisé
      */
-    UTILISE;
+    UTILISE,
+
+    /**
+     * billet réservé mais en attente de paiement
+     */
+    ATTENTE_PAIEMENT
 }
