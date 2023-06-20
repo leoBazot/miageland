@@ -21,10 +21,11 @@ Projet sur les Applications d'Entreprises avec Spring
 |  X   | PUT     | /attractions/{attId}/fermer | X                                         | X                                                         | Ferme une attraction par son id                  |
 |  X   | GET     | /employes                   | X                                         | X                                                         | Permet de consulter la liste des employes        |
 |  X   | POST    | /employes                   | nom - prenom - adresse mail - typeEmploye | employe.id                                                | Un gérant ajoute un compte employe               |
-|      | DELETE  | /employes/{eId}             | X                                         | X                                                         | Supprime un compte employe                       |
+|  X   | DELETE  | /employes/{eId}             | X                                         | X                                                         | Supprime un compte employe                       |
 |      | POST    | /billets/reserver           | dateVisite                                | billet.id                                                 | Un visiteur réserve un billet                    |
 |      | GET     | /billets                    | X                                         | liste des billets du compte                               | Permet de consulter la liste des billets achetés |
 |      | GET     | /billets/{id}               | X                                         | billet.id - billet.dateVisite - billet.prix - billet.etat | Permet de consulter un billet                    |
+|      | PUT     | /billets/{billetId}/payer   | X                                         | X                                                         | Permet à un visiteur de payer son billet         |
 |      | PUT     | /billets/{billetId}/annuler | X                                         | billet.prix                                               | Un visiteur annule un billet                     |
 |  X   | PUT     | /billets/{billetId}/valider | X                                         | EtatBillet                                                | Un employé valide un billet                      |
 |      | GET     | /statistiques/              | X                                         | toutes les stats du sujet                                 | Permet de consulter les statistiques du parc     |
@@ -34,6 +35,10 @@ Projet sur les Applications d'Entreprises avec Spring
 
 Ce projet utilise une base de données MySQL qu'on peut créer sous Docker avec la commande :
 docker run --name=mysql_miageland -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=test -p 3306:3306 mysql
+
+### Format des dates
+
+Dates et heures au format [iso](https://www.baeldung.com/spring-date-parameters#applicationProperties)
 
 ---
 
