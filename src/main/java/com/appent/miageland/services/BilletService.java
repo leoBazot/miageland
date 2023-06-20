@@ -90,6 +90,12 @@ public class BilletService {
 
     }
 
+    /**
+     * Donne tout les billets d'un visiteur
+     *
+     * @param cptId id du visiteur
+     * @return collection des billets d'un visiteur
+     */
     public Collection<Billet> getAll(Long cptId) {
         return this.billetRepository.findAllByCompteVisiteurId(cptId);
     }

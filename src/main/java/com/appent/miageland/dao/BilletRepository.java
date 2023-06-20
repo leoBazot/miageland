@@ -26,5 +26,11 @@ public interface BilletRepository extends CrudRepository<Billet, Long> {
      */
     int countAllByDateVisiteAndEtat(LocalDate dateVisite, EtatBillet etat);
 
+    /**
+     * Recherche les billets appartenant à un utilisateur
+     *
+     * @param cptId id du visiteur
+     * @return une collection de billets appartenant au visiteur
+     */
     Collection<Billet> findAllByCompteVisiteurId(Long cptId);
 }
