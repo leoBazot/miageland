@@ -21,7 +21,14 @@ public class Billet {
     /**
      * Date de visite
      */
+    @NotNull
     private Date dateVisite;
+
+    /**
+     * Date ou le billet à été payé
+     */
+    @NotNull
+    private Date datePaye;
 
     /**
      * Visiteur ayant acheté le billet
