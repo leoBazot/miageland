@@ -76,6 +76,15 @@ public class CompteService {
     }
 
     /**
+     * Permet à un gerant de lister les comptes employés
+     *
+     * @return une collection de comptes employé
+     */
+    public Collection<CompteEmploye> getAllEmployes() {
+        return this.compteEmployeRepository.findAll();
+    }
+
+    /**
      * Permet de se connecter à un compte
      *
      * @param adresseMail l'adresse mail du compte
@@ -140,13 +149,18 @@ public class CompteService {
     /**
      * Permet à un visiteur de supprimmer son compte
      *
-     * @param cptId id du compte à supprimer
+     * @param id id du compte à supprimer
      */
-    public void supprCompteVisiteur(Long cptId) {
-        this.compteVisiteurRepository.delete(this.getVisiteur(cptId));
+    public void supprCompteVisiteur(Long id) {
+        this.compteVisiteurRepository.delete(this.getVisiteur(id));
     }
 
-    public Collection<CompteEmploye> getAllEmployes() {
-        return this.compteEmployeRepository.findAll();
+    /**
+     * Permet à un gerant de supprimmer le compte d'un employe
+     *
+     * @param id id du compte à supprimer
+     */
+    public void supprCompteEmploye(Long id) {
+        this.compteEmployeRepository.delete(this.getEmploye(id));
     }
 }

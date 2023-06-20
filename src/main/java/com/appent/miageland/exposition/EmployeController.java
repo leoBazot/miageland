@@ -28,4 +28,11 @@ public class EmployeController {
 
         return this.compteService.creerCompteEmploye(employe);
     }
+
+    @DeleteMapping("/{eId}")
+    public void supprEmploye(Long cptId, Long eId) {
+        this.compteService.verifAutorisations(cptId, Autorisations.GERER_PERSONNEL);
+
+        this.compteService.supprCompteEmploye(eId);
+    }
 }
