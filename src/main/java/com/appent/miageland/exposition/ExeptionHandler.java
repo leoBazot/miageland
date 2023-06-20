@@ -4,6 +4,7 @@ import com.appent.miageland.export.ErrorExport;
 import com.appent.miageland.utilities.exceptions.attraction.AttractionExistanteException;
 import com.appent.miageland.utilities.exceptions.billet.BilletInexistantException;
 import com.appent.miageland.utilities.exceptions.billet.BilletInvalideException;
+import com.appent.miageland.utilities.exceptions.billet.DateAnnulationInvalideException;
 import com.appent.miageland.utilities.exceptions.compte.CompteExistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteInexistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteNonAutoriseException;
@@ -120,6 +121,18 @@ public class ExeptionHandler {
      */
     @ExceptionHandler(BilletInvalideException.class)
     public ResponseEntity<ErrorExport> gererException(BilletInvalideException exception) {
+        return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
+    }
+
+
+    /**
+     * Erreur 400 en cas de date d'annulation invalide
+     *
+     * @param exception exception throw
+     * @return error 400 ainsi que le type d'erreur et son message
+     */
+    @ExceptionHandler(DateAnnulationInvalideException.class)
+    public ResponseEntity<ErrorExport> gererException(DateAnnulationInvalideException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
     }
 

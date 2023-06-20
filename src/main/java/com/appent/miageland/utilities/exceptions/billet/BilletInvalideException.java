@@ -5,6 +5,6 @@ import com.appent.miageland.entities.Billet;
 public class BilletInvalideException extends RuntimeException {
 
     public BilletInvalideException(Billet billet) {
-        super("le billet est : " + billet.getEtat());
+        super("Attention, le billet est : " + billet.getEtat() + ". Opération impossible !");
     }
 }

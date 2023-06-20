@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 
 @Service
@@ -122,14 +123,39 @@ public class BilletService {
      * @return le billet validé
      */
     public Billet payerBillet(CompteVisiteur visiteur, Long billetId) {
-        var paye = getBillet(visiteur, billetId);
+        var billet = getBillet(visiteur, billetId);
 
-        if (paye.getEtat() != EtatBillet.ATTENTE_PAIEMENT) {
-            throw BilletExceptionFactory.createBilletInvalideException(paye);
+        if (billet.getEtat() != EtatBillet.ATTENTE_PAIEMENT) {
+            throw BilletExceptionFactory.createBilletInvalideException(billet);
         } // else
 
-        paye.setEtat(EtatBillet.VALIDE);
+        billet.setEtat(EtatBillet.VALIDE);
 
-        return this.billetRepository.save(paye);
+        return this.billetRepository.save(billet);
+    }
+
+    /**
+     * Annule un billet non utilisé
+     *
+     * @param visiteur visiteur
+     * @param billetId id du billet à annuler
+     * @return le billet annulé
+     * @throws com.appent.miageland.utilities.exceptions.billet.BilletInvalideException         si le billet est déjà utilisé ou annulé
+     * @throws com.appent.miageland.utilities.exceptions.billet.DateAnnulationInvalideException si la date de visite est dans moins de 7 jours
+     */
+    public Billet annuler(CompteVisiteur visiteur, Long billetId) {
+        var billet = getBillet(visiteur, billetId);
+
+        if (billet.getEtat() == EtatBillet.UTILISE || billet.getEtat() == EtatBillet.ANNULE) {
+            throw BilletExceptionFactory.createBilletInvalideException(billet);
+        } // else
+
+        if (Math.abs(ChronoUnit.DAYS.between(LocalDate.now(), billet.getDateVisite())) + 1 < 7) {
+            throw BilletExceptionFactory.createDateAnnulationInvalideException();
+        }
+
+        billet.setEtat(EtatBillet.ANNULE);
+
+        return this.billetRepository.save(billet);
     }
 }
