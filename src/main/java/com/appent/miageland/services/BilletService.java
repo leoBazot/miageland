@@ -130,6 +130,7 @@ public class BilletService {
         } // else
 
         billet.setEtat(EtatBillet.VALIDE);
+        billet.setDatePaye(LocalDate.now());
 
         return this.billetRepository.save(billet);
     }
