@@ -5,6 +5,7 @@ import com.appent.miageland.export.EtatBillet;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Optional;
 
 public interface BilletRepository extends CrudRepository<Billet, Long> {
@@ -24,4 +25,6 @@ public interface BilletRepository extends CrudRepository<Billet, Long> {
      * @return le nombre de billets
      */
     int countAllByDateVisiteAndEtat(LocalDate dateVisite, EtatBillet etat);
+
+    Collection<Billet> findAllByCompteVisiteurId(Long cptId);
 }

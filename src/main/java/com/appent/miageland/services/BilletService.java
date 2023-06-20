@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Service
 @AllArgsConstructor
@@ -87,5 +88,9 @@ public class BilletService {
                 + this.billetRepository.countAllByDateVisiteAndEtat(date, EtatBillet.ATTENTE_PAIEMENT)
                 + this.billetRepository.countAllByDateVisiteAndEtat(date, EtatBillet.UTILISE);
 
+    }
+
+    public Collection<Billet> getAll(Long cptId) {
+        return this.billetRepository.findAllByCompteVisiteurId(cptId);
     }
 }

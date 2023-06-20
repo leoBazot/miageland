@@ -8,6 +8,8 @@ import com.appent.miageland.utilities.Autorisations;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/api/comptes/{cptId}/billets")
 @AllArgsConstructor()
@@ -29,5 +31,10 @@ public class BilletController {
         var visiteur = this.compteService.getVisiteur(cptId);
 
         return this.billetService.reserver(visiteur, dateVisite);
+    }
+
+    @GetMapping
+    public Collection<Billet> getAllBillets(Long cptId) {
+        return this.billetService.getAll(cptId);
     }
 }

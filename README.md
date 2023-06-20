@@ -23,7 +23,7 @@ Projet sur les Applications d'Entreprises avec Spring
 |  X   | POST    | /employes                   | nom - prenom - adresse mail - typeEmploye | employe.id                                                | Un gérant ajoute un compte employe               |
 |  X   | DELETE  | /employes/{eId}             | X                                         | X                                                         | Supprime un compte employe                       |
 |  X   | POST    | /billets/reserver           | dateVisite                                | billet.id                                                 | Un visiteur réserve un billet                    |
-|      | GET     | /billets                    | X                                         | liste des billets du compte                               | Permet de consulter la liste des billets achetés |
+|  X   | GET     | /billets                    | X                                         | liste des billets du compte                               | Permet de consulter la liste des billets achetés |
 |      | GET     | /billets/{id}               | X                                         | billet.id - billet.dateVisite - billet.prix - billet.etat | Permet de consulter un billet                    |
 |      | PUT     | /billets/{billetId}/payer   | X                                         | X                                                         | Permet à un visiteur de payer son billet         |
 |      | PUT     | /billets/{billetId}/annuler | X                                         | billet.prix                                               | Un visiteur annule un billet                     |
