@@ -29,7 +29,9 @@ Projet sur les Applications d'Entreprises avec Spring
 |  X   | PUT     | /billets/{billetId}/annuler | X                                         | billet.prix                                               | Un visiteur annule un billet                     |
 |  X   | PUT     | /billets/{billetId}/valider | X                                         | EtatBillet                                                | Un employé valide un billet                      |
 |      | GET     | /statistiques/              | X                                         | toutes les stats du sujet                                 | Permet de consulter les statistiques du parc     |
-|      | PUT     | /jauges/{date}/{int}        | X                                         | X                                                         | Permet de modifier la jauge d'une date           |
+|  X   | GET     | /jauges/                    | X                                         | X                                                         | Permet de récupérer toutes les jauges            |
+|  X   | GET     | /jauges/{date}              | X                                         | X                                                         | Permet de récupérer une jauge à une date donnée  |
+|  X   | POST    | /jauges/                    | jauge                                     | jauge                                                     | Permet de modifier la jauge d'une date           |
 
 ### Configuration
 

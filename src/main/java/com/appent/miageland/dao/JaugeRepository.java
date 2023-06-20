@@ -4,6 +4,7 @@ import com.appent.miageland.entities.Jauge;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Optional;
 
 public interface JaugeRepository extends CrudRepository<Jauge, Long> {
@@ -14,5 +15,12 @@ public interface JaugeRepository extends CrudRepository<Jauge, Long> {
      * @return la jauge
      */
     Optional<Jauge> findByJour(LocalDate jour);
+
+    /**
+     * renvoye toutes les jauges existantes
+     *
+     * @return une collection de jauges
+     */
+    Collection<Jauge> findAll();
 
 }

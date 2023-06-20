@@ -8,6 +8,8 @@ import com.appent.miageland.utilities.exceptions.billet.DateAnnulationInvalideEx
 import com.appent.miageland.utilities.exceptions.compte.CompteExistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteInexistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteNonAutoriseException;
+import com.appent.miageland.utilities.exceptions.jauge.JaugeExistanteException;
+import com.appent.miageland.utilities.exceptions.jauge.JaugeInexistanteException;
 import com.appent.miageland.utilities.exceptions.jauge.JaugePleineException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +62,18 @@ public class ExeptionHandler {
      */
     @ExceptionHandler(BilletInexistantException.class)
     public ResponseEntity<ErrorExport> gererException(BilletInexistantException exception) {
+        return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Erreur 404 en cas de jauge inexistant dans la base
+     *
+     * @param exception exception throw
+     * @return error 404 ainsi que le type d'erreur et son message
+     */
+    @ExceptionHandler(JaugeInexistanteException.class)
+
+    public ResponseEntity<ErrorExport> gererException(JaugeInexistanteException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
     }
 
@@ -136,6 +150,17 @@ public class ExeptionHandler {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Erreur 400 en cas de jauge déjà existante
+     *
+     * @param exception exception throw
+     * @return error 400 ainsi que le type d'erreur et son message
+     */
+    @ExceptionHandler(JaugeExistanteException.class)
+    public ResponseEntity<ErrorExport> gererException(JaugeExistanteException exception) {
+        return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
+    }
+
     /*
      ***************************************
      ************* ERREURS 403 *************
@@ -149,6 +174,7 @@ public class ExeptionHandler {
      * @return error 403 ainsi que le type d'erreur et son message
      */
     @ExceptionHandler(CompteNonAutoriseException.class)
+
     public ResponseEntity<ErrorExport> gererException(CompteNonAutoriseException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.FORBIDDEN);
     }
