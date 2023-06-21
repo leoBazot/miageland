@@ -20,36 +20,36 @@ public class BilletController {
 
 
     @GetMapping("{billetId}/valider")
-    public EtatBillet validerBillet(@PathVariable Long cptId, @PathVariable Long billetId) {
+    public EtatBillet validerBillet(@PathVariable String cptId, @PathVariable Long billetId) {
         this.compteService.verifAutorisations(cptId, Autorisations.VALIDER_BILLET);
 
         return this.billetService.valider(billetId);
     }
 
     @PostMapping("/reserver")
-    public Billet reserverBillet(@PathVariable Long cptId, @RequestBody String dateVisite) {
+    public Billet reserverBillet(@PathVariable String cptId, @RequestBody String dateVisite) {
         var visiteur = this.compteService.getVisiteur(cptId);
 
         return this.billetService.reserver(visiteur, dateVisite);
     }
 
     @GetMapping
-    public Collection<Billet> getAllBillets(@PathVariable Long cptId) {
+    public Collection<Billet> getAllBillets(@PathVariable String cptId) {
         return this.billetService.getAll(this.compteService.getVisiteur(cptId));
     }
 
     @GetMapping("/{billetId}")
-    public Billet getBillet(@PathVariable Long cptId, @PathVariable Long billetId) {
+    public Billet getBillet(@PathVariable String cptId, @PathVariable Long billetId) {
         return this.billetService.getBillet(this.compteService.getVisiteur(cptId), billetId);
     }
 
     @PutMapping("/{billetId}/payer")
-    public Billet payerBillet(@PathVariable Long cptId, @PathVariable Long billetId) {
+    public Billet payerBillet(@PathVariable String cptId, @PathVariable Long billetId) {
         return this.billetService.payerBillet(this.compteService.getVisiteur(cptId), billetId);
     }
 
     @PutMapping("/{billetId}/annuler")
-    public Billet annulerBillet(@PathVariable Long cptId, @PathVariable Long billetId) {
+    public Billet annulerBillet(@PathVariable String cptId, @PathVariable Long billetId) {
         return this.billetService.annuler(this.compteService.getVisiteur(cptId), billetId);
     }
 

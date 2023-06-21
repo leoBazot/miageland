@@ -20,14 +20,14 @@ public class StatistiquesController {
     private StatistiquesService statistiquesService;
 
     @GetMapping
-    public StatGlobales getStatGlobales(@PathVariable Long cptId) {
+    public StatGlobales getStatGlobales(@PathVariable String cptId) {
         this.compteService.verifAutorisations(cptId, Autorisations.SUPERVISER_PARC);
 
         return this.statistiquesService.getStatGlobales();
     }
 
     @GetMapping("/{date}")
-    public StatsJournalieres getStatsJour(@PathVariable Long cptId, @PathVariable String date) {
+    public StatsJournalieres getStatsJour(@PathVariable String cptId, @PathVariable String date) {
         this.compteService.verifAutorisations(cptId, Autorisations.SUPERVISER_PARC);
 
         return this.statistiquesService.getStatsJour(date);

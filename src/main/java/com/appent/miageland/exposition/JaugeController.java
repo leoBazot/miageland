@@ -20,21 +20,21 @@ public class JaugeController {
     private final JaugeService jaugeService;
 
     @GetMapping
-    public Collection<Jauge> getAllJauges(@PathVariable Long cptId) {
+    public Collection<Jauge> getAllJauges(@PathVariable String cptId) {
         this.compteService.verifAutorisations(cptId, Autorisations.SUPERVISER_PARC);
 
         return this.jaugeService.getAll();
     }
 
     @GetMapping("/{date}")
-    public JaugeExport getJaugebyDate(@PathVariable Long cptId, @PathVariable String date) {
+    public JaugeExport getJaugebyDate(@PathVariable String cptId, @PathVariable String date) {
         this.compteService.verifAutorisations(cptId, Autorisations.SUPERVISER_PARC);
 
         return this.jaugeService.getByDate(date);
     }
 
     @PostMapping
-    public JaugeExport createJauge(@PathVariable Long cptId, @RequestBody JaugeExport jauge) {
+    public JaugeExport createJauge(@PathVariable String cptId, @RequestBody JaugeExport jauge) {
         this.compteService.verifAutorisations(cptId, Autorisations.SUPERVISER_PARC);
 
         return this.jaugeService.create(jauge);

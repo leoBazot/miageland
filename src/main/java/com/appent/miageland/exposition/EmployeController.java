@@ -1,6 +1,6 @@
 package com.appent.miageland.exposition;
 
-import com.appent.miageland.entities.CompteEmploye;
+import com.appent.miageland.export.CompteEmployeExport;
 import com.appent.miageland.services.CompteService;
 import com.appent.miageland.utilities.Autorisations;
 import lombok.AllArgsConstructor;
@@ -16,21 +16,25 @@ public class EmployeController {
     private final CompteService compteService;
 
     @GetMapping
-    public Collection<CompteEmploye> getAllEmploye(@PathVariable Long cptId) {
+    public Collection<CompteEmployeExport> getAllEmploye(@PathVariable String cptId) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_PERSONNEL);
 
         return this.compteService.getAllEmployes();
     }
 
     @PostMapping
-    public CompteEmploye creerEmploye(@PathVariable Long cptId, @RequestBody CompteEmploye employe) {
+    public CompteEmployeExport creerEmploye(@PathVariable String cptId, @RequestBody CompteEmployeExport employe) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_PERSONNEL);
 
         return this.compteService.creerCompteEmploye(employe);
     }
 
+    /**
+     * @param cptId id du compte
+     * @param eId   id de l'employe
+     */
     @DeleteMapping("/{eId}")
-    public void supprEmploye(@PathVariable Long cptId, @PathVariable Long eId) {
+    public void supprEmploye(@PathVariable String cptId, @PathVariable String eId) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_PERSONNEL);
 
         this.compteService.supprCompteEmploye(eId);

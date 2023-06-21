@@ -1,6 +1,6 @@
 package com.appent.miageland.exposition;
 
-import com.appent.miageland.entities.Compte;
+import com.appent.miageland.export.CompteExport;
 import com.appent.miageland.services.CompteService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,17 +13,17 @@ public class VisiteurController {
     private final CompteService compteService;
 
     @GetMapping("login/{adresseMail}")
-    public Compte login(@PathVariable String adresseMail) {
+    public CompteExport login(@PathVariable String adresseMail) {
         return this.compteService.login(adresseMail);
     }
 
     @PostMapping
-    public Long creerVisiteur(@RequestBody Compte compte) {
+    public CompteExport creerVisiteur(@RequestBody CompteExport compte) {
         return this.compteService.creerCompteVisiteur(compte);
     }
 
     @DeleteMapping("/{cptId}")
-    public void supprimerVisiteur(@PathVariable Long cptId) {
+    public void supprimerVisiteur(@PathVariable String cptId) {
         this.compteService.supprCompteVisiteur(cptId);
     }
 }

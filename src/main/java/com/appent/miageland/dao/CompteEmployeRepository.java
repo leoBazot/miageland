@@ -5,9 +5,10 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 
-public interface CompteEmployeRepository extends CrudRepository<CompteEmploye, Long> {
+public interface CompteEmployeRepository extends CrudRepository<CompteEmploye, UUID> {
 
     /**
      * Recherche un compte employé par son adresse mail

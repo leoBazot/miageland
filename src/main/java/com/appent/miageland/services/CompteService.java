@@ -5,6 +5,8 @@ import com.appent.miageland.dao.CompteVisiteurRepository;
 import com.appent.miageland.entities.Compte;
 import com.appent.miageland.entities.CompteEmploye;
 import com.appent.miageland.entities.CompteVisiteur;
+import com.appent.miageland.export.CompteEmployeExport;
+import com.appent.miageland.export.CompteExport;
 import com.appent.miageland.export.TypeEmploye;
 import com.appent.miageland.utilities.exceptions.CompteExceptionFactory;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -28,7 +31,7 @@ public class CompteService {
      * @param autorises types de comptes autorisés à faire l'opération
      * @throws com.appent.miageland.utilities.exceptions.compte.CompteNonAutoriseException si le compte n'a pas les droits nécessaires
      */
-    public void verifAutorisations(Long cptId, List<TypeEmploye> autorises) {
+    public void verifAutorisations(String cptId, List<TypeEmploye> autorises) {
         var employe = this.getEmploye(cptId);
 
         if (!autorises.contains(employe.getTypeEmploye())) {
@@ -58,9 +61,9 @@ public class CompteService {
      * @return le compte s'il existe
      * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
      */
-    public CompteVisiteur getVisiteur(Long id) {
-        return this.compteVisiteurRepository.findById(id).orElseThrow(() ->
-                CompteExceptionFactory.createCompteInexistantException(id));
+    public CompteVisiteur getVisiteur(String id) {
+        return this.compteVisiteurRepository.findById(UUID.fromString(id)).orElseThrow(() ->
+                CompteExceptionFactory.createCompteInexistantException(UUID.fromString(id)));
     }
 
     /**
@@ -70,9 +73,9 @@ public class CompteService {
      * @return le compte s'il existe
      * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
      */
-    public CompteEmploye getEmploye(Long id) {
-        return this.compteEmployeRepository.findById(id).orElseThrow(() ->
-                CompteExceptionFactory.createCompteInexistantException(id));
+    public CompteEmploye getEmploye(String id) {
+        return this.compteEmployeRepository.findById(UUID.fromString(id)).orElseThrow(() ->
+                CompteExceptionFactory.createCompteInexistantException(UUID.fromString(id)));
     }
 
     /**
@@ -80,8 +83,21 @@ public class CompteService {
      *
      * @return une collection de comptes employé
      */
-    public Collection<CompteEmploye> getAllEmployes() {
-        return this.compteEmployeRepository.findAll();
+    public Collection<CompteEmployeExport> getAllEmployes() {
+        Collection<CompteEmployeExport> res = new ArrayList<>();
+
+        this.compteEmployeRepository.findAll().forEach(employe -> {
+            var export = new CompteEmployeExport();
+            export.setId(employe.getId().toString());
+            export.setAdresseMail(employe.getAdresseMail());
+            export.setNom(employe.getNom());
+            export.setPrenom(employe.getPrenom());
+            export.setTypeEmploye(employe.getTypeEmploye());
+
+            res.add(export);
+        });
+
+        return res;
     }
 
     /**
@@ -91,14 +107,23 @@ public class CompteService {
      * @return l'id du compte si le compte existe
      * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
      */
-    public Compte login(String adresseMail) {
+    public CompteExport login(String adresseMail) {
         List<Compte> comptes = this.getAllCompteWithMail(adresseMail);
 
         if (comptes.isEmpty()) {
             throw CompteExceptionFactory.createCompteInexistantException(adresseMail);
         } // else
 
-        return comptes.get(0);
+        var cpt = comptes.get(0);
+
+        var res = new CompteExport();
+
+        res.setId(cpt.getId().toString());
+        res.setAdresseMail(cpt.getAdresseMail());
+        res.setNom(cpt.getNom());
+        res.setPrenom(cpt.getPrenom());
+
+        return res;
     }
 
     /**
@@ -108,7 +133,7 @@ public class CompteService {
      * @return l'id du compte créé
      * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte existe déjà
      */
-    public Long creerCompteVisiteur(Compte compte) {
+    public CompteExport creerCompteVisiteur(CompteExport compte) {
         List<Compte> compteList = this.getAllCompteWithMail(compte.getAdresseMail());
 
         if (!compteList.isEmpty()) {
@@ -116,12 +141,21 @@ public class CompteService {
         } // else
 
         CompteVisiteur newVisiteur = new CompteVisiteur();
+        newVisiteur.setId(null);
         newVisiteur.setNom(compte.getNom());
         newVisiteur.setPrenom(compte.getPrenom());
         newVisiteur.setAdresseMail(compte.getAdresseMail());
         newVisiteur.setBillets(new ArrayList<>());
 
-        return this.compteVisiteurRepository.save(newVisiteur).getId();
+        var cpt = this.compteVisiteurRepository.save(newVisiteur);
+
+        var res = new CompteExport();
+        res.setId(cpt.getId().toString());
+        res.setAdresseMail(cpt.getAdresseMail());
+        res.setNom(cpt.getNom());
+        res.setPrenom(cpt.getPrenom());
+
+        return res;
     }
 
     /**
@@ -130,7 +164,7 @@ public class CompteService {
      * @param employe les informations de l'employe à créer
      * @return le compte employe créé
      */
-    public CompteEmploye creerCompteEmploye(CompteEmploye employe) {
+    public CompteEmployeExport creerCompteEmploye(CompteEmployeExport employe) {
         List<Compte> compteList = this.getAllCompteWithMail(employe.getAdresseMail());
 
         if (!compteList.isEmpty()) {
@@ -138,12 +172,22 @@ public class CompteService {
         } // else
 
         var newEmploye = new CompteEmploye();
+        newEmploye.setId(null);
         newEmploye.setNom(employe.getNom());
         newEmploye.setPrenom(employe.getPrenom());
         newEmploye.setAdresseMail(employe.getAdresseMail());
         newEmploye.setTypeEmploye(employe.getTypeEmploye());
 
-        return this.compteEmployeRepository.save(newEmploye);
+        var cpt = this.compteEmployeRepository.save(newEmploye);
+
+        var res = new CompteEmployeExport();
+
+        res.setId(cpt.getId().toString());
+        res.setAdresseMail(cpt.getAdresseMail());
+        res.setNom(cpt.getNom());
+        res.setPrenom(cpt.getPrenom());
+
+        return res;
     }
 
     /**
@@ -151,7 +195,7 @@ public class CompteService {
      *
      * @param id id du compte à supprimer
      */
-    public void supprCompteVisiteur(Long id) {
+    public void supprCompteVisiteur(String id) {
         this.compteVisiteurRepository.delete(this.getVisiteur(id));
     }
 
@@ -160,7 +204,7 @@ public class CompteService {
      *
      * @param id id du compte à supprimer
      */
-    public void supprCompteEmploye(Long id) {
+    public void supprCompteEmploye(String id) {
         this.compteEmployeRepository.delete(this.getEmploye(id));
     }
 }

@@ -4,9 +4,10 @@ import com.appent.miageland.entities.CompteVisiteur;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 
-public interface CompteVisiteurRepository extends CrudRepository<CompteVisiteur, Long> {
+public interface CompteVisiteurRepository extends CrudRepository<CompteVisiteur, UUID> {
 
     /**
      * Recherche un compte visiteur par son adresse mail

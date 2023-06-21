@@ -5,9 +5,11 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.util.UUID;
+
 @MappedSuperclass
 @Data
-public class Compte {
+public abstract class Compte {
     /**
      * Nom du compte
      */
@@ -27,10 +29,7 @@ public class Compte {
     @Column(unique = true)
     private String adresseMail;
 
-    public Long getId() {
-        return null;
-    }
+    public abstract UUID getId();
 
-    public void setId(Long id) {
-    }
+    public abstract void setId(UUID id);
 }

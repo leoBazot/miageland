@@ -6,6 +6,8 @@ import com.appent.miageland.utilities.exceptions.compte.CompteNonAutoriseExcepti
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 /**
  * Factory permettant de créer des exceptions liées aux comptes
  */
@@ -35,7 +37,7 @@ public class CompteExceptionFactory {
      *
      * @param id du compte
      */
-    public static CompteInexistantException createCompteInexistantException(Long id) {
+    public static CompteInexistantException createCompteInexistantException(UUID id) {
         return new CompteInexistantException(id);
     }
 
@@ -45,7 +47,7 @@ public class CompteExceptionFactory {
      * @param id du compte
      * @return une exception
      */
-    public static CompteNonAutoriseException createCompteNonAutoriseException(Long id) {
+    public static CompteNonAutoriseException createCompteNonAutoriseException(String id) {
         return new CompteNonAutoriseException(id);
     }
 }
