@@ -74,6 +74,10 @@ public class StatistiquesService {
         double nbVisites = billets.size();
         double nbDates = this.countDatesDiff(billets);
 
+        if (nbDates == 0) {
+            return 0;
+        }
+
         return nbVisites / nbDates;
     }
 
@@ -105,6 +109,10 @@ public class StatistiquesService {
         double nbVisites = billets.size();
         double nbDates = countDatesDiff(billets);
 
+        if (nbDates == 0) {
+            return 0;
+        }
+
         return nbVisites / nbDates;
     }
 
@@ -122,6 +130,10 @@ public class StatistiquesService {
         // convertion en double pour la division
         double nbVisites = billets.size();
         double nbVisiteur = visiteurs.size();
+
+        if (nbVisiteur == 0) {
+            return 0;
+        }
 
         return nbVisites / nbVisiteur;
     }
