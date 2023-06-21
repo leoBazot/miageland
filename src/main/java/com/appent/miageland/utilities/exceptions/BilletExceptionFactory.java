@@ -4,6 +4,7 @@ import com.appent.miageland.entities.Billet;
 import com.appent.miageland.utilities.exceptions.billet.BilletInexistantException;
 import com.appent.miageland.utilities.exceptions.billet.BilletInvalideException;
 import com.appent.miageland.utilities.exceptions.billet.DateAnnulationInvalideException;
+import com.appent.miageland.utilities.exceptions.billet.DateReservationInvalideException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -29,5 +30,9 @@ public class BilletExceptionFactory {
 
     public static DateAnnulationInvalideException createDateAnnulationInvalideException() {
         return new DateAnnulationInvalideException();
+    }
+
+    public static DateReservationInvalideException createDateReservationInvalideException() {
+        return new DateReservationInvalideException();
     }
 }

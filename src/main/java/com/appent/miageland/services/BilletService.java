@@ -55,6 +55,10 @@ public class BilletService {
     public Billet reserver(CompteVisiteur visiteur, String dateVisite) {
         var date = LocalDate.parse(dateVisite);
 
+        if (date.isBefore(LocalDate.now())) {
+            throw BilletExceptionFactory.createDateReservationInvalideException();
+        } // else
+
         var jauge = this.jaugeRepository.findByJour(date);
 
         var nbBillets = this.countBilletsReserves(date);

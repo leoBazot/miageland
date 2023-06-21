@@ -5,6 +5,7 @@ import com.appent.miageland.utilities.exceptions.attraction.AttractionExistanteE
 import com.appent.miageland.utilities.exceptions.billet.BilletInexistantException;
 import com.appent.miageland.utilities.exceptions.billet.BilletInvalideException;
 import com.appent.miageland.utilities.exceptions.billet.DateAnnulationInvalideException;
+import com.appent.miageland.utilities.exceptions.billet.DateReservationInvalideException;
 import com.appent.miageland.utilities.exceptions.compte.CompteExistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteInexistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteNonAutoriseException;
@@ -158,6 +159,17 @@ public class ExeptionHandler {
      */
     @ExceptionHandler(JaugeExistanteException.class)
     public ResponseEntity<ErrorExport> gererException(JaugeExistanteException exception) {
+        return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Erreur 400 en cas e reservation sur une date antèrieure à la date du jour
+     *
+     * @param exception exception throw
+     * @return error 400 ainsi que le type d'erreur et son message
+     */
+    @ExceptionHandler(DateReservationInvalideException.class)
+    public ResponseEntity<ErrorExport> gererException(DateReservationInvalideException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
     }
 
