@@ -40,6 +40,11 @@ public class BilletService {
         if (billet.getEtat() != EtatBillet.VALIDE) {
             throw BilletExceptionFactory.createBilletInvalideException(billet);
         } // else
+
+        if (!billet.getDateVisite().equals(LocalDate.now())) {
+            throw BilletExceptionFactory.createDateVisiteInvalideException(billet.getDateVisite());
+        }
+
         billet.setEtat(EtatBillet.UTILISE);
         this.billetRepository.save(billet);
         return EtatBillet.VALIDE;
@@ -102,7 +107,7 @@ public class BilletService {
      * @return collection des billets d'un visiteur
      */
     public Collection<Billet> getAll(CompteVisiteur visiteur) {
-        return this.billetRepository.findAllByCompteVisiteur(visiteur);
+        return visiteur.getBillets();
     }
 
     /**

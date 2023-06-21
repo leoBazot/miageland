@@ -1,12 +1,11 @@
 package com.appent.miageland.utilities.exceptions;
 
 import com.appent.miageland.entities.Billet;
-import com.appent.miageland.utilities.exceptions.billet.BilletInexistantException;
-import com.appent.miageland.utilities.exceptions.billet.BilletInvalideException;
-import com.appent.miageland.utilities.exceptions.billet.DateAnnulationInvalideException;
-import com.appent.miageland.utilities.exceptions.billet.DateReservationInvalideException;
+import com.appent.miageland.utilities.exceptions.billet.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 /**
  * Factory permettant de créer des exceptions liées aux billets
@@ -34,5 +33,9 @@ public class BilletExceptionFactory {
 
     public static DateReservationInvalideException createDateReservationInvalideException() {
         return new DateReservationInvalideException();
+    }
+
+    public static DateVisiteInvalideException createDateVisiteInvalideException(LocalDate date) {
+        return new DateVisiteInvalideException(date);
     }
 }
