@@ -91,14 +91,14 @@ public class CompteService {
      * @return l'id du compte si le compte existe
      * @throws com.appent.miageland.utilities.exceptions.compte.CompteInexistantException si le compte n'existe pas
      */
-    public Long login(String adresseMail) {
+    public Compte login(String adresseMail) {
         List<Compte> comptes = this.getAllCompteWithMail(adresseMail);
 
         if (comptes.isEmpty()) {
             throw CompteExceptionFactory.createCompteInexistantException(adresseMail);
         } // else
 
-        return comptes.get(0).getId();
+        return comptes.get(0);
     }
 
     /**

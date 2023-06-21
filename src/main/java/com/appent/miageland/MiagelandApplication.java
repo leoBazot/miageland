@@ -1,9 +1,6 @@
 package com.appent.miageland;
 
-import com.appent.miageland.dao.AttractionRepository;
-import com.appent.miageland.dao.BilletRepository;
 import com.appent.miageland.dao.CompteEmployeRepository;
-import com.appent.miageland.dao.CompteVisiteurRepository;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,13 +19,7 @@ public class MiagelandApplication implements CommandLineRunner {
      */
     private static Logger logger = LogManager.getLogger(MiagelandApplication.class);
 
-    private final CompteVisiteurRepository compteVisiteurRepository;
-
     private final CompteEmployeRepository compteEmployeRepository;
-
-    private final BilletRepository billetRepository;
-
-    private final AttractionRepository attractionRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(MiagelandApplication.class, args);
@@ -38,5 +29,18 @@ public class MiagelandApplication implements CommandLineRunner {
     @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = Exception.class)
     public void run(String... args) throws Exception {
         logger.info("Démarrage de l'application");
+
+/*
+        logger.info("Création du gérant....");
+        var gerant = new CompteEmploye();
+
+        gerant.setNom("Bogacki");
+        gerant.setPrenom("Léo");
+        gerant.setAdresseMail("admin@miageland.com");
+        gerant.setTypeEmploye(TypeEmploye.GERANT);
+
+        this.compteEmployeRepository.save(gerant);
+        logger.info("Gérant créé !");
+*/
     }
 }

@@ -16,21 +16,21 @@ public class EmployeController {
     private final CompteService compteService;
 
     @GetMapping
-    public Collection<CompteEmploye> getAllEmploye(Long cptId) {
+    public Collection<CompteEmploye> getAllEmploye(@PathVariable Long cptId) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_PERSONNEL);
 
         return this.compteService.getAllEmployes();
     }
 
     @PostMapping
-    public CompteEmploye creerEmploye(Long cptId, @RequestBody CompteEmploye employe) {
+    public CompteEmploye creerEmploye(@PathVariable Long cptId, @RequestBody CompteEmploye employe) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_PERSONNEL);
 
         return this.compteService.creerCompteEmploye(employe);
     }
 
     @DeleteMapping("/{eId}")
-    public void supprEmploye(Long cptId, Long eId) {
+    public void supprEmploye(@PathVariable Long cptId, @PathVariable Long eId) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_PERSONNEL);
 
         this.compteService.supprCompteEmploye(eId);

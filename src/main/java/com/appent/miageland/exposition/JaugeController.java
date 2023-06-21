@@ -6,10 +6,7 @@ import com.appent.miageland.services.CompteService;
 import com.appent.miageland.services.JaugeService;
 import com.appent.miageland.utilities.Autorisations;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -23,21 +20,21 @@ public class JaugeController {
     private final JaugeService jaugeService;
 
     @GetMapping
-    public Collection<Jauge> getAllJauges(Long cptId) {
+    public Collection<Jauge> getAllJauges(@PathVariable Long cptId) {
         this.compteService.verifAutorisations(cptId, Autorisations.SUPERVISER_PARC);
 
         return this.jaugeService.getAll();
     }
 
     @GetMapping("/{date}")
-    public JaugeExport getJaugebyDate(Long cptId, String date) {
+    public JaugeExport getJaugebyDate(@PathVariable Long cptId, @PathVariable String date) {
         this.compteService.verifAutorisations(cptId, Autorisations.SUPERVISER_PARC);
 
         return this.jaugeService.getByDate(date);
     }
 
     @PostMapping
-    public JaugeExport createJauge(Long cptId, JaugeExport jauge) {
+    public JaugeExport createJauge(@PathVariable Long cptId, @RequestBody JaugeExport jauge) {
         this.compteService.verifAutorisations(cptId, Autorisations.SUPERVISER_PARC);
 
         return this.jaugeService.create(jauge);

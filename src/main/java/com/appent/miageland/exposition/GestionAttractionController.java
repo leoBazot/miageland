@@ -16,28 +16,28 @@ public class GestionAttractionController {
 
 
     @PostMapping
-    public Attraction creerAttraction(Long cptId, @RequestBody String nomAttraction) {
+    public Attraction creerAttraction(@PathVariable Long cptId, @RequestBody String nomAttraction) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
 
         return this.attractionService.creeAttraction(nomAttraction);
     }
 
     @DeleteMapping("/{attId}")
-    public void supprimerAttraction(Long cptId, Long attId) {
+    public void supprimerAttraction(@PathVariable Long cptId, @PathVariable Long attId) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
 
         this.attractionService.supprimmerAttraction(attId);
     }
 
     @PutMapping("/{attId}/ouvrir")
-    public void ourvrirAttraction(Long cptId, @RequestBody Attraction attraction) {
+    public void ourvrirAttraction(@PathVariable Long cptId, @RequestBody Attraction attraction) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
 
         this.attractionService.ouvrir(attraction);
     }
 
     @PutMapping("/{attId}/fermer")
-    public void fermerAttraction(Long cptId, @RequestBody Attraction attraction) {
+    public void fermerAttraction(@PathVariable Long cptId, @RequestBody Attraction attraction) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
 
         this.attractionService.fermer(attraction);

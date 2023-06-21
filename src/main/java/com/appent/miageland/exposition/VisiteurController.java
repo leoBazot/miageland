@@ -13,7 +13,7 @@ public class VisiteurController {
     private final CompteService compteService;
 
     @GetMapping("login/{adresseMail}")
-    public Long login(String adresseMail) {
+    public Compte login(@PathVariable String adresseMail) {
         return this.compteService.login(adresseMail);
     }
 
@@ -23,7 +23,7 @@ public class VisiteurController {
     }
 
     @DeleteMapping("/{cptId}")
-    public void supprimerVisiteur(Long cptId) {
+    public void supprimerVisiteur(@PathVariable Long cptId) {
         this.compteService.supprCompteVisiteur(cptId);
     }
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 
 @MappedSuperclass
 @Data
-public abstract class Compte {
+public class Compte {
     /**
      * Nom du compte
      */
@@ -27,7 +27,10 @@ public abstract class Compte {
     @Column(unique = true)
     private String adresseMail;
 
-    public abstract Long getId();
+    public Long getId() {
+        return null;
+    }
 
-    public abstract void setId(Long id);
+    public void setId(Long id) {
+    }
 }

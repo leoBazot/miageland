@@ -163,20 +163,19 @@ public class ExeptionHandler {
 
     /*
      ***************************************
-     ************* ERREURS 403 *************
+     ************* ERREURS 401 *************
      ***************************************
      */
 
     /**
-     * Erreur 403 si le compte manque de droit pour réaliser une opération
+     * Erreur 401 si le compte manque de droit pour réaliser une opération
      *
      * @param exception exception throw
      * @return error 403 ainsi que le type d'erreur et son message
      */
     @ExceptionHandler(CompteNonAutoriseException.class)
-
     public ResponseEntity<ErrorExport> gererException(CompteNonAutoriseException exception) {
-        return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.UNAUTHORIZED);
     }
 
     /*
