@@ -8,7 +8,7 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Autorisations {
-    public static final List<TypeEmploye> VALIDER_BILLET = List.of(TypeEmploye.EMPLOYE);
+    public static final List<TypeEmploye> VALIDER_BILLET = List.of(TypeEmploye.EMPLOYE, TypeEmploye.ADMINISTRATEUR);
 
     public static final List<TypeEmploye> GERER_ATTRACTION = List.of(TypeEmploye.GERANT, TypeEmploye.ADMINISTRATEUR);
 

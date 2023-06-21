@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface BilletRepository extends CrudRepository<Billet, Long> {
@@ -35,4 +36,20 @@ public interface BilletRepository extends CrudRepository<Billet, Long> {
      * @return une collection de billets appartenant au visiteur
      */
     Collection<Billet> findAllByCompteVisiteur(CompteVisiteur visiteur);
+
+    /**
+     * Recherche des billets par leurs états
+     *
+     * @param etat a rechercher
+     * @return une liste de billet dans l'etat souhaité
+     */
+    List<Billet> findAllByEtat(EtatBillet etat);
+
+    /**
+     * Recherche des billets par leurs états
+     *
+     * @param etat a rechercher
+     * @return une liste de billet dans l'etat souhaité
+     */
+    int countAllByEtat(EtatBillet etat);
 }
