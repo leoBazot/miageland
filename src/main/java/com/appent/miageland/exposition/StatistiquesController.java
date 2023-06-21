@@ -26,7 +26,10 @@ public class StatistiquesController {
         return this.statistiquesService.getStatGlobales();
     }
 
-    public StatsJournalieres getStatsJour() {
-        return null; //TODO
+    @GetMapping("/{date}")
+    public StatsJournalieres getStatsJour(@PathVariable Long cptId, @PathVariable String date) {
+        this.compteService.verifAutorisations(cptId, Autorisations.SUPERVISER_PARC);
+
+        return this.statistiquesService.getStatsJour(date);
     }
 }

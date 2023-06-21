@@ -52,4 +52,14 @@ public interface BilletRepository extends CrudRepository<Billet, Long> {
      * @return une liste de billet dans l'etat souhaité
      */
     int countAllByEtat(EtatBillet etat);
+
+    List<Billet> findAllByEtatAndDateVisite(EtatBillet etat, LocalDate date);
+
+    /**
+     * Recherche des billets par leurs états pour un jour donné
+     *
+     * @param etat a rechercher
+     * @return une liste de billet dans l'etat souhaité
+     */
+    int countAllByEtatAndDateVisite(EtatBillet etat, LocalDate date);
 }

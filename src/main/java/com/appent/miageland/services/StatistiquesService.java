@@ -5,6 +5,7 @@ import com.appent.miageland.entities.Billet;
 import com.appent.miageland.entities.CompteVisiteur;
 import com.appent.miageland.export.EtatBillet;
 import com.appent.miageland.export.StatGlobales;
+import com.appent.miageland.export.StatsJournalieres;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -153,4 +154,42 @@ public class StatistiquesService {
         return stats;
     }
 
+    private double getRecettesJour(LocalDate date) {
+        var billets = this.billetRepository.findAllByEtatAndDateVisite(EtatBillet.UTILISE, date);
+
+        double recette = 0.0;
+        for (var b : billets) {
+            recette += b.getPrix();
+        }
+
+        return recette;
+    }
+
+    /**
+     * Récupère le nombre de billets ayant été payés
+     *
+     * @return nombre de billets vendu
+     */
+    private int getNbBilletsVendusJour(LocalDate date) {
+        return this.billetRepository.countAllByEtatAndDateVisite(EtatBillet.UTILISE, date)
+                + this.billetRepository.countAllByEtatAndDateVisite(EtatBillet.VALIDE, date);
+    }
+
+    /**
+     * Récupère les statistiques par date du parc
+     *
+     * @param date à laquelle on veut récupérer les statistiques
+     * @return statistiques du jour souhaité
+     */
+    public StatsJournalieres getStatsJour(String date) {
+        var stats = new StatsJournalieres();
+
+        var dateParse = LocalDate.parse(date);
+
+        stats.setRecettes(this.getRecettesJour(dateParse));
+
+        stats.setNbBilletsVendu(this.getNbBilletsVendusJour(dateParse));
+
+        return stats;
+    }
 }
