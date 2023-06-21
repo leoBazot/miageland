@@ -1,5 +1,7 @@
 package com.appent.miageland.utilities.exceptions.compte;
 
+import java.util.UUID;
+
 public class CompteInexistantException extends RuntimeException {
 
     /**
@@ -16,7 +18,7 @@ public class CompteInexistantException extends RuntimeException {
      *
      * @param id du compte
      */
-    public CompteInexistantException(Long id) {
+    public CompteInexistantException(UUID id) {
 
         super("Aucun compte n'existe pour l'identifiant " + id + " !");
     }
