@@ -10,6 +10,8 @@ public class StatGlobales {
 
     private int nbBilletsVendu;
 
+    private double nbBilletsVenduMoyen;
+
     /**
      * nombre de billets en attente de paiement
      */

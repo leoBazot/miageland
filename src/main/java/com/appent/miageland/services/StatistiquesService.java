@@ -1,6 +1,7 @@
 package com.appent.miageland.services;
 
 import com.appent.miageland.dao.BilletRepository;
+import com.appent.miageland.entities.Billet;
 import com.appent.miageland.entities.CompteVisiteur;
 import com.appent.miageland.export.EtatBillet;
 import com.appent.miageland.export.StatGlobales;
@@ -62,10 +63,26 @@ public class StatistiquesService {
     }
 
     /**
-     * @return nombre de visiteur moyen par jours
+     * @return nombre de billets vendu par jours
      */
-    private double getNbVisiteurMoyen() {
+    private double getNbBilletsVenduMoyen() {
         var billets = this.billetRepository.findAllByEtat(EtatBillet.UTILISE);
+        billets.addAll(this.billetRepository.findAllByEtat(EtatBillet.VALIDE));
+
+        // convertion en double pour la division
+        double nbVisites = billets.size();
+        double nbDates = this.countDatesDiff(billets);
+
+        return nbVisites / nbDates;
+    }
+
+    /**
+     * compte le nombre de dates de visite différentes pour les billets donnés
+     *
+     * @param billets liste de billets
+     * @return le nombre de dates différentes
+     */
+    private double countDatesDiff(List<Billet> billets) {
         List<LocalDate> dates = new ArrayList<>();
 
         for (var b : billets) {
@@ -74,9 +91,18 @@ public class StatistiquesService {
             }
         }
 
+        return dates.size();
+    }
+
+    /**
+     * @return nombre de visiteur moyen par jours
+     */
+    private double getNbVisiteurMoyen() {
+        var billets = this.billetRepository.findAllByEtat(EtatBillet.UTILISE);
+
         // convertion en double pour la division
         double nbVisites = billets.size();
-        double nbDates = dates.size();
+        double nbDates = countDatesDiff(billets);
 
         return nbVisites / nbDates;
     }
@@ -113,6 +139,8 @@ public class StatistiquesService {
         stats.setRecetteTotaleEspere(this.getRecettesTotaleEspere());
 
         stats.setNbBilletsVendu(this.getNbBilletsVendus());
+
+        stats.setNbBilletsVenduMoyen(this.getNbBilletsVenduMoyen());
 
         stats.setNbBilletsReserves(this.billetRepository.countAllByEtat(EtatBillet.ATTENTE_PAIEMENT));
 
