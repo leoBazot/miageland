@@ -4,6 +4,7 @@ import com.appent.miageland.export.CompteEmployeExport;
 import com.appent.miageland.services.CompteService;
 import com.appent.miageland.utilities.Autorisations;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -34,6 +35,7 @@ public class EmployeController {
      * @param eId   id de l'employe
      */
     @DeleteMapping("/{eId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void supprEmploye(@PathVariable String cptId, @PathVariable String eId) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_PERSONNEL);
 

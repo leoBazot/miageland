@@ -3,6 +3,7 @@ package com.appent.miageland.exposition;
 import com.appent.miageland.export.CompteExport;
 import com.appent.miageland.services.CompteService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,6 +24,7 @@ public class VisiteurController {
     }
 
     @DeleteMapping("/{cptId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void supprimerVisiteur(@PathVariable String cptId) {
         this.compteService.supprCompteVisiteur(cptId);
     }

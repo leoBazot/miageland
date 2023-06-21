@@ -5,6 +5,7 @@ import com.appent.miageland.services.AttractionService;
 import com.appent.miageland.services.CompteService;
 import com.appent.miageland.utilities.Autorisations;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/comptes/{cptId}/attractions")
@@ -23,6 +24,7 @@ public class GestionAttractionController {
     }
 
     @DeleteMapping("/{attId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void supprimerAttraction(@PathVariable String cptId, @PathVariable Long attId) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
 
@@ -30,7 +32,7 @@ public class GestionAttractionController {
     }
 
     @PutMapping("/{attId}/ouvrir")
-    public void ourvrirAttraction(@PathVariable String cptId, @RequestBody Attraction attraction) {
+    public void ouvrirAttraction(@PathVariable String cptId, @RequestBody Attraction attraction) {
         this.compteService.verifAutorisations(cptId, Autorisations.GERER_ATTRACTION);
 
         this.attractionService.ouvrir(attraction);
