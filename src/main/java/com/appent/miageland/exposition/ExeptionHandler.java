@@ -6,6 +6,7 @@ import com.appent.miageland.utilities.exceptions.billet.*;
 import com.appent.miageland.utilities.exceptions.compte.CompteExistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteInexistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteNonAutoriseException;
+import com.appent.miageland.utilities.exceptions.compte.MailInvalideException;
 import com.appent.miageland.utilities.exceptions.jauge.JaugeExistanteException;
 import com.appent.miageland.utilities.exceptions.jauge.JaugeInexistanteException;
 import com.appent.miageland.utilities.exceptions.jauge.JaugePleineException;
@@ -178,6 +179,17 @@ public class ExeptionHandler {
      */
     @ExceptionHandler(DateVisiteInvalideException.class)
     public ResponseEntity<ErrorExport> gererException(DateVisiteInvalideException exception) {
+        return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Erreur 400 en cas de billet pour une autre date qu'aujourd'hui
+     *
+     * @param exception exception throw
+     * @return error 400 ainsi que le type d'erreur et son message
+     */
+    @ExceptionHandler(MailInvalideException.class)
+    public ResponseEntity<ErrorExport> gererException(MailInvalideException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
     }
 

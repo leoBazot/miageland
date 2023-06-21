@@ -3,6 +3,7 @@ package com.appent.miageland.utilities.exceptions;
 import com.appent.miageland.utilities.exceptions.compte.CompteExistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteInexistantException;
 import com.appent.miageland.utilities.exceptions.compte.CompteNonAutoriseException;
+import com.appent.miageland.utilities.exceptions.compte.MailInvalideException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -49,5 +50,9 @@ public class CompteExceptionFactory {
      */
     public static CompteNonAutoriseException createCompteNonAutoriseException(String id) {
         return new CompteNonAutoriseException(id);
+    }
+
+    public static MailInvalideException createMailInvalideException(String adresseMail) {
+        return new MailInvalideException(adresseMail);
     }
 }

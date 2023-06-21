@@ -161,6 +161,16 @@ public class MiagelandApplication implements CommandLineRunner {
 
             this.billetRepository.save(billet7);
 
+            logger.info("Création d'un billet valide pour Jean Eude le 2023-06-22....");
+            var billet8 = new Billet();
+
+            billet8.setCompteVisiteur(jeanEude);
+            billet8.setDateVisite(LocalDate.parse("2023-06-22"));
+            billet8.setEtat(EtatBillet.VALIDE);
+            billet8.setPrix(SuperVision.PRIX_PAR_DEFAUT);
+
+            this.billetRepository.save(billet8);
+
             logger.info("Création d'une attraction ouverte : \"Tah le louping\"....");
             var looping = new Attraction();
 

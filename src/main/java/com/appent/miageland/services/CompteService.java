@@ -140,6 +140,10 @@ public class CompteService {
             throw CompteExceptionFactory.createCompteExistantException(compte.getAdresseMail());
         } // else
 
+        if (!checkMail(compte.getAdresseMail())) {
+            throw CompteExceptionFactory.createMailInvalideException(compte.getAdresseMail());
+        } // else
+
         CompteVisiteur newVisiteur = new CompteVisiteur();
         newVisiteur.setId(null);
         newVisiteur.setNom(compte.getNom());
@@ -171,6 +175,10 @@ public class CompteService {
             throw CompteExceptionFactory.createCompteExistantException(employe.getAdresseMail());
         } // else
 
+        if (this.checkMail(employe.getAdresseMail())) {
+            throw CompteExceptionFactory.createMailInvalideException(employe.getAdresseMail());
+        } // else
+
         var newEmploye = new CompteEmploye();
         newEmploye.setId(null);
         newEmploye.setNom(employe.getNom());
@@ -188,6 +196,10 @@ public class CompteService {
         res.setPrenom(cpt.getPrenom());
 
         return res;
+    }
+
+    private boolean checkMail(String adresseMail) {
+        return adresseMail.matches("^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*$");
     }
 
     /**
