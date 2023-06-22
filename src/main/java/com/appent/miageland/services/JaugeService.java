@@ -1,7 +1,9 @@
 package com.appent.miageland.services;
 
+import com.appent.miageland.dao.BilletRepository;
 import com.appent.miageland.dao.JaugeRepository;
 import com.appent.miageland.entities.Jauge;
+import com.appent.miageland.export.EtatBillet;
 import com.appent.miageland.export.JaugeExport;
 import com.appent.miageland.utilities.exceptions.JaugeExceptionFactory;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,7 @@ public class JaugeService {
 
     private JaugeRepository jaugeRepository;
 
+    private BilletRepository billetRepository;
 
     /**
      * Récupère toutes les jauges existantes
@@ -53,6 +56,13 @@ public class JaugeService {
         var date = LocalDate.parse(jauge.getJour());
         if (this.jaugeRepository.findByJour(date).isPresent()) {
             throw JaugeExceptionFactory.createJaugeExistanteException(jauge.getJour());
+        }
+
+        var nbBillets = this.billetRepository.countAllByEtatAndDateVisite(EtatBillet.VALIDE, date)
+                + this.billetRepository.countAllByEtatAndDateVisite(EtatBillet.ATTENTE_PAIEMENT, date);
+
+        if (nbBillets > jauge.getNbPlaces()) {
+            throw JaugeExceptionFactory.createJaugeTropPetiteException(jauge, nbBillets);
         }
 
         var newJauge = new Jauge();

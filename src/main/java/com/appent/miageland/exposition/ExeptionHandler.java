@@ -10,6 +10,7 @@ import com.appent.miageland.utilities.exceptions.compte.MailInvalideException;
 import com.appent.miageland.utilities.exceptions.jauge.JaugeExistanteException;
 import com.appent.miageland.utilities.exceptions.jauge.JaugeInexistanteException;
 import com.appent.miageland.utilities.exceptions.jauge.JaugePleineException;
+import com.appent.miageland.utilities.exceptions.jauge.JaugeTropPetiteException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingPathVariableException;
@@ -190,6 +191,17 @@ public class ExeptionHandler {
      */
     @ExceptionHandler(MailInvalideException.class)
     public ResponseEntity<ErrorExport> gererException(MailInvalideException exception) {
+        return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Erreur 400 en cas de billet pour une autre date qu'aujourd'hui
+     *
+     * @param exception exception throw
+     * @return error 400 ainsi que le type d'erreur et son message
+     */
+    @ExceptionHandler(JaugeTropPetiteException.class)
+    public ResponseEntity<ErrorExport> gererException(JaugeTropPetiteException exception) {
         return new ResponseEntity<>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.BAD_REQUEST);
     }
 

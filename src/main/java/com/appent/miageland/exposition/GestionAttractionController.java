@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
 @RequestMapping("/api/comptes/{cptId}/attractions")
 @AllArgsConstructor
 public class GestionAttractionController {
