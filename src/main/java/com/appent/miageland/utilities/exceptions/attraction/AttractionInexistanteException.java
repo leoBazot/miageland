@@ -8,6 +8,6 @@ public class AttractionInexistanteException extends RuntimeException {
      * @param attId adresse mail du compte
      */
     public AttractionInexistanteException(Long attId) {
-        super("L'attraction \"" + attId + "\" existe déjà !");
+        super("L'attraction \"" + attId + "\" n'existe pas !");
     }
 }
