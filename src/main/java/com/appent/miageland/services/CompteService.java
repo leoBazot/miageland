@@ -175,7 +175,7 @@ public class CompteService {
             throw CompteExceptionFactory.createCompteExistantException(employe.getAdresseMail());
         } // else
 
-        if (this.checkMail(employe.getAdresseMail())) {
+        if (!this.checkMail(employe.getAdresseMail())) {
             throw CompteExceptionFactory.createMailInvalideException(employe.getAdresseMail());
         } // else
 
