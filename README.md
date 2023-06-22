@@ -5,6 +5,7 @@
 Projet sur les Applications d'Entreprises avec Spring
 
 [Sujet en pdf](./ressources/AE_projet_Spring_22-23.pdf)
+[github du projet](https://github.com/leoBazot/miageland)
 
 ## Utilisation de l'API
 
