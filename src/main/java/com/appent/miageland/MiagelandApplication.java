@@ -170,6 +170,8 @@ public class MiagelandApplication implements CommandLineRunner {
             billet8.setPrix(SuperVision.PRIX_PAR_DEFAUT);
 
             this.billetRepository.save(billet8);
+            logger.info("Billets réservés !");
+
 
             logger.info("Création d'une attraction ouverte : \"Tah le louping\"....");
             var looping = new Attraction();
@@ -195,6 +197,8 @@ public class MiagelandApplication implements CommandLineRunner {
 
             this.attractionRepository.save(chuteLibre);
 
+            logger.info("Attractions créées!");
+
             logger.info("Création d'une jauge de 4 personnes pour le 2023-08-23....");
             var jauge = new Jauge();
 
@@ -203,7 +207,29 @@ public class MiagelandApplication implements CommandLineRunner {
 
             this.jaugeRepository.save(jauge);
 
-            logger.info("Billets réservés !");
+            logger.info("Jauge créée !");
+
+            logger.info("Création de l'administrateur Chugo Mouhan....");
+            var chugoMouhan = new CompteEmploye();
+
+            chugoMouhan.setNom("Mouhan");
+            chugoMouhan.setPrenom("Chugo");
+            chugoMouhan.setAdresseMail("chugo.m@miageland.com");
+            chugoMouhan.setTypeEmploye(TypeEmploye.ADMINISTRATEUR);
+
+            this.compteEmployeRepository.save(chugoMouhan);
+
+            logger.info("Création de l'employe Parpin Latchatche....");
+            var parpinLatchatche = new CompteEmploye();
+
+            parpinLatchatche.setNom("Latchatche");
+            parpinLatchatche.setPrenom("Parpin");
+            parpinLatchatche.setAdresseMail("parpin.l@miageland.com");
+            parpinLatchatche.setTypeEmploye(TypeEmploye.EMPLOYE);
+
+            this.compteEmployeRepository.save(parpinLatchatche);
+
+            logger.info("Administrateur créé !");
         }
     }
 }
